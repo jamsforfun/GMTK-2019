@@ -15,6 +15,12 @@ public class EditorSceneView : EditorWindow
     private static Event _currentEvent; //need to be updated each frame
     private static ExtUtilityEditor.HitSceneView hitScene;
 
+    private static bool _needToSetupUI = true;
+    public const string MAIN_WINDOW = "MAIN_WINDOW";
+    private static TinyEditorWindowSceneView _mainWindow;
+
+    private static GameLinker _gameLinker;
+
     /// <summary>
     /// Reload script after each laod scene, compile callBack, or play/unplay event
     /// 
@@ -31,8 +37,28 @@ public class EditorSceneView : EditorWindow
         }
         SceneView.onSceneGUIDelegate += OnScene;
         _isEnabled = true;
+        _needToSetupUI = true;
 
         SetupAllScripts();
+    }
+
+    private static void SetupEditorWindowNavigator()
+    {
+        _mainWindow = new TinyEditorWindowSceneView();
+        float xFromRight = 140; //from the right, substract this value to go left a bit
+        float width = 120;
+        float x = EditorGUIUtility.currentViewWidth - width - xFromRight;
+        float y = 20;
+        float height = 150;
+        Rect rectNav = new Rect(x, y, width, height);
+        _mainWindow.Init(MAIN_WINDOW, "EditorWindow", 0, rectNav, _currentSceneView, _currentEvent, true, true, true, true);
+    }
+
+    private static void SetupAllNavigator()
+    {
+        _needToSetupUI = false;
+
+        SetupEditorWindowNavigator();
     }
 
     public static bool IsEnabled()
@@ -42,12 +68,10 @@ public class EditorSceneView : EditorWindow
 
     private static void ResetupIfNull()
     {
-        /*
-        if (!_raceSceneLinker || !_raceSceneLinker)
+        if (!_gameLinker)
         {
             SetupAllScripts();
         }
-        */
     }
 
     /// <summary>
@@ -55,7 +79,7 @@ public class EditorSceneView : EditorWindow
     /// </summary>
     private static void SetupAllScripts()
     {
-        //_raceSceneLinker = UtilityEditor.GetScript<RaceSceneLinker>();
+        _gameLinker = ExtUtilityEditor.GetScript<GameLinker>();
     }
 
     /// <summary>
@@ -100,17 +124,34 @@ public class EditorSceneView : EditorWindow
     
     private static bool CanSetupRaceUI()
     {
-        bool canSetup = true;//(_raceSceneLinker && _toolsRaceTrack);
+        bool canSetup = _gameLinker;
         return (canSetup);
     }
     
+    public static void DisplayMain()
+    {
+        using (HorizontalScope horizontalScope = new HorizontalScope())
+        {
+            if (GUILayout.Button("Menu"))
+            {
+                //EditorSceneManager.MarkAllScenesDirty();
+                EditorSceneManager.SaveOpenScenes();
+                _gameLinker.SceneLoader.LoadSceneByTrackIndex(0);
+            }
+            if (GUILayout.Button("Game"))
+            {
+                EditorSceneManager.SaveOpenScenes();
+                _gameLinker.SceneLoader.LoadSceneByTrackIndex(1);
+            }
+        }
+    }
 
     /// <summary>
     /// Draw all GUI
     /// </summary>
     private static void AllGUI()
     {
-
+        _mainWindow.ShowEditorWindow(DisplayMain, _currentSceneView, _currentEvent);
     }
 
     private static void OwnGUI()
@@ -119,6 +160,11 @@ public class EditorSceneView : EditorWindow
         _currentEvent = Event.current;
 
         Color oldColor = GUI.backgroundColor;
+
+        if (_needToSetupUI)
+        {
+            SetupAllNavigator();
+        }
 
         AllGUI();
         SetCurrentOverObject();
