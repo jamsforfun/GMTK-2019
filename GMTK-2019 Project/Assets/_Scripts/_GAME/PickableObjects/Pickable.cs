@@ -12,6 +12,8 @@ public class Pickable : MonoBehaviour
     [SerializeField] private float _dropInitialVelocity = 1f;
     private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
 
+    //Comment to commit
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!_isAvailable)
