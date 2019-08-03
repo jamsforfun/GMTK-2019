@@ -32,4 +32,8 @@ public class PlayerLinker : MonoBehaviour
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerObjectInteraction PlayerObjectInteraction;
 
+    public void Init()
+    {
+
+    }
 }

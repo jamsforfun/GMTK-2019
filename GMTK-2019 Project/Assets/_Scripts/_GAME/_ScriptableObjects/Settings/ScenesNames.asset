@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43cfde2adf340a34eb22590fdcc009ac, type: 3}
-  m_Name: PlayerSettings
+  m_Name: ScenesNames
   m_EditorClassIdentifier: 
-  Id: 0
-  Name: 
+  ScenesToLoad:
+  - SceneName: 1_MENU
+    ScenePath: Assets/_Scenes/
+  - SceneName: 2_GAME
+    ScenePath: Assets/_Scenes/

@@ -19,6 +19,14 @@ public class AllPlayerLinker : MonoBehaviour
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     public ReferenceButton[] ReferenceButtonPlayer;
 
+    public void Init()
+    {
+        for (int i = 0; i < PlayerLinker.Length; i++)
+        {
+            PlayerLinker[i].Init();
+        }
+    }
+
     /// <summary>
     /// get an action from someon , with an index
     /// index correspond to the id of the player (not id if the array !)
