@@ -16,12 +16,15 @@ public class BinaryTimer : MonoBehaviour
     //indique si le timer et arrivé à terme
     private bool _timerEnded = false;
 
-    //variable contenant le champ text dans lequel le timer sera affiché (auto attribué si le script et déposé sur un gameobject avec un chmap d'UI Text
+    //variable contenant le champ text dans lequel le timer sera affiché (auto attribué si le script et déposé sur un gameobject avec un chmap d'UI Text)
     private Text _timerText;
 
     //variable contenant la durée du timer
     [SerializeField]
     private float timerTime;
+    //multiplicateur pour goflet le chiffre affiché au conteur
+    [SerializeField]
+    private int multiplicateur;
 
 
     private void Awake()
@@ -40,7 +43,7 @@ public class BinaryTimer : MonoBehaviour
         _timeRemaning = _endingTimer - Time.time;
 
         if (_timeRemaning >= 0)
-            _timerText.text = Convert.ToString((int)_timeRemaning, 2);
+            _timerText.text = Convert.ToString((int)_timeRemaning * multiplicateur, 2);
         else
             _timerEnded = true;
     }
