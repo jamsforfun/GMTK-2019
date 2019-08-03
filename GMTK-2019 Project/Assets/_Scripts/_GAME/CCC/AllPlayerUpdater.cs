@@ -11,11 +11,12 @@ public class AllPlayerUpdater : MonoBehaviour
 
     private void SetInEditorIdPlayer()
     {
-        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Count; i++)
+        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
             _allPlayerLinker.PlayerLinker[i].PlayerManager.Id = i;
             _allPlayerLinker.PlayerLinker[i].transform.name = _allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.NamePlayer + " " + i;
             _allPlayerLinker.PlayerLinker[i].PlayerRender.SetMaterial(_allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.Material);
+            _allPlayerLinker.PlayerLinker[i].PlayerRender.SetText(_allPlayerLinker.ReferenceButtonPlayer[i].TextButton, _allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.Material.color);
         }
     }
 
@@ -24,7 +25,7 @@ public class AllPlayerUpdater : MonoBehaviour
     /// </summary>
     private void UpdateAllPlayer()
     {
-        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Count; i++)
+        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
             _allPlayerLinker.PlayerLinker[i].PlayerInput.CustomUpdate();
         }
@@ -35,7 +36,7 @@ public class AllPlayerUpdater : MonoBehaviour
     /// </summary>
     private void FixedUpdateAllPlayer()
     {
-        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Count; i++)
+        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
             _allPlayerLinker.PlayerLinker[i].PlayerMove.CustomFixedUpdate();
         }

@@ -8,6 +8,9 @@ public class PlayerMove : MonoBehaviour
 {
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private float _speedMove = 5f;
+    [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
+    private AnimationCurve _easeAcceleration = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+
     [FoldoutGroup("GamePlay"), Tooltip("drag when we move"), SerializeField]
     private float _moveDrag = 0;
     [FoldoutGroup("GamePlay"), Tooltip("drag when we stop"), SerializeField]
