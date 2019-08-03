@@ -10,7 +10,7 @@ public class GameState : MonoBehaviour
         NONE = 0,
         LOADING = 10,
         GAME = 20,
-        OVER = 30,
+        DOOR_OPEN = 30,
     }
 
     [FoldoutGroup("GamePlay"), Tooltip("ref")]
@@ -18,6 +18,10 @@ public class GameState : MonoBehaviour
 
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private AllPlayerLinker _allPlayerLinker;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private BinaryTimer _binaryTimer;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private Door _door;
 
     public bool CanMovePlayer()
     {
@@ -37,5 +41,19 @@ public class GameState : MonoBehaviour
     public void StartGame()
     {
         _allPlayerLinker.Init();
+    }
+
+    private void TestIfGameEnded()
+    {
+        if (StateOfGame == StateGame.GAME && _binaryTimer.TimerEnded)
+        {
+            StateOfGame = StateGame.DOOR_OPEN;
+            _door.OpenDoor();
+        }
+    }
+
+    private void Update()
+    {
+        TestIfGameEnded();
     }
 }
