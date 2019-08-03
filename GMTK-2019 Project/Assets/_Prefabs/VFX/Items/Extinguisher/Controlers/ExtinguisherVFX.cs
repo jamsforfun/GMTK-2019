@@ -18,13 +18,6 @@ namespace GMTK.VFX
         #endregion
 
         #region Methods
-
-        private void Update()
-        {
-            blastLength = _blastLength;
-        }
-
-
         /// <summary>
         /// Plays the effect
         /// </summary>
