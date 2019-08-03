@@ -31,6 +31,10 @@ public class PlayerLinker : MonoBehaviour
     public Collider ColliderPlayer;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerObjectInteraction PlayerObjectInteraction;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public GroundForwardCheck GroundForwardCheck;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public PlayerSlide PlayerSlide;
 
     public void Init()
     {

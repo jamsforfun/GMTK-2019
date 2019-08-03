@@ -35,6 +35,11 @@ public class PlayerMove : MonoBehaviour
         return (speed);
     }
 
+    public Vector3 GetLastDirection()
+    {
+        return (_lastDirection);
+    }
+
     public void Awake()
     {
         _lastDirection = _playerLinker.transform.forward;
@@ -79,7 +84,21 @@ public class PlayerMove : MonoBehaviour
     private void MovePlayer()
     {
         _lastDirection = _playerInput.GetMoveDirection();
-        MovePhysics(_lastDirection);
+
+        if (_playerLinker.GroundForwardCheck.IsStraffNeeded())
+        {
+            //Debug.Log("move Straff");
+            //_playerLinker.PlayerSlide.CalculateStraffDirection();
+            Vector3 straffDir = _playerLinker.PlayerSlide.GetStraffDirection();
+            MovePhysics(straffDir);
+        }
+        else
+        {
+            MovePhysics(_lastDirection);
+        }
+
+        //_lastDirection = _playerInput.GetMoveDirection();
+        //MovePhysics(_lastDirection);
     }
 
     private void TurnRender()

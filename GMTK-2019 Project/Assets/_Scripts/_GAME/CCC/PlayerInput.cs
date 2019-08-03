@@ -32,6 +32,8 @@ public class PlayerInput : MonoBehaviour
 
     [FoldoutGroup("Object"), Tooltip("id unique du joueur correspondant à sa manette"), SerializeField]
     private PlayerManager _playerManager = default;
+    [FoldoutGroup("Object"), Tooltip("id unique du joueur correspondant à sa manette"), SerializeField]
+    private PlayerLinker _playerLinker;
 
 
     private void OnEnable()
@@ -65,6 +67,17 @@ public class PlayerInput : MonoBehaviour
     public bool IsMoving(float margin = 0.1f)
     {
         return (MoveInput.sqrMagnitude > margin);
+    }
+
+    /// <summary>
+    /// get the relative direction 
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetRelativeDirection(float xBoost = 1, float yBoost = 1)
+    {
+        Vector2 dirInput = GetMoveDirection();
+        Vector2 relativeDirection = _playerLinker.RenderPlayerTurn.right * dirInput.x * xBoost + _playerLinker.RenderPlayerTurn.forward * dirInput.y * yBoost;
+        return (relativeDirection);
     }
 
     public Vector2 GetMoveDirection(bool normalize = true)

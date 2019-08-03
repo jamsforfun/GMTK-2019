@@ -10,13 +10,12 @@ public class Pickable : MonoBehaviour
     [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialVelocity = 1f;
 
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
+    [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
     private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
-
-    //Comment to commit
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -24,16 +23,20 @@ public class Pickable : MonoBehaviour
         {
             return;
         }
+        _itemTransfer.StopTransfer();
         PlayerLinker collidingPlayerLinker;
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
         if (isColliderAPlayer)
         {
             PlayerObjectInteraction playerObjectInteraction = collidingPlayerLinker.PlayerObjectInteraction;
-            if (!playerObjectInteraction.HasItem)
+            bool hasItemSwapped;
+            playerObjectInteraction.SetItem(this, out hasItemSwapped);
+            _isAvailable = !hasItemSwapped;
+
+            if (hasItemSwapped)
             {
-                _isAvailable = false;
                 SetupItemTransform(collidingPlayerLinker.RenderPlayerTurn);
-                playerObjectInteraction.SetItem(this);
+                collidingPlayerLinker.PlayerAction.SetCurrentItem(_itemTransfer);
             }
         }
     }
@@ -63,9 +66,16 @@ public class Pickable : MonoBehaviour
     public void DropItem()
     {
         Vector3 dropDirection = transform.parent.forward;
+        DetachFromPlayer();
+        _rigidbody.velocity = dropDirection * _dropInitialVelocity;
+    }
+
+    public void DetachFromPlayer()
+    {
         transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
-        _rigidbody.velocity = dropDirection * _dropInitialVelocity;
+        _rigidbody.drag = 2f;
+        _rigidbody.useGravity = true;
     }
 }
