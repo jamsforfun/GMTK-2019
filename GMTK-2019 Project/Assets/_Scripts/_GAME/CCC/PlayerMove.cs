@@ -61,5 +61,6 @@ public class PlayerMove : MonoBehaviour
             rb.drag = _stopDrag;
             _frequencyEaseAndOut.EvaluateEveryFrameOut();
         }
+
     }
 }
