@@ -10,10 +10,12 @@ public class PlayerCollide : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        /*
         PlayerLinker player = null;
         if (AllPlayerLinker.IsThatColliderIsAPlayer(collision.collider, out player))
         {
 
         }
+        */
     }
 }

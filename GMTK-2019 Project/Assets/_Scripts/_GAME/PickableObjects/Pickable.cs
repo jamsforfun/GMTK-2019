@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
 public class Pickable : MonoBehaviour
 {
-    [SerializeField] private Transform _allItems = default;
-    [SerializeField] private Rigidbody _rigidbody = default;
-    [SerializeField] private bool _isAvailable = true;
-    [SerializeField] private AllPlayerLinker _allPlayerLinker = default;
-    [SerializeField] private float _dropInitialVelocity = 1f;
+    [SerializeField, FoldoutGroup("GamePlay")] private bool _isAvailable = true;
+    [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialVelocity = 1f;
+
+    [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
+
+    [ReadOnly] public Transform AllItems;
+    [ReadOnly] public AllPlayerLinker AllPlayerLinker;
+
     private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
 
     //Comment to commit
@@ -28,7 +32,7 @@ public class Pickable : MonoBehaviour
             if (!playerObjectInteraction.HasItem)
             {
                 _isAvailable = false;
-                SetupItemTransform(collidingPlayerLinker.Rigidbody.transform);
+                SetupItemTransform(collidingPlayerLinker.RenderPlayerTurn);
                 playerObjectInteraction.SetItem(this);
             }
         }
@@ -36,7 +40,7 @@ public class Pickable : MonoBehaviour
 
     private bool IsColliderAPlayer(Collision collision, out PlayerLinker collisionPlayerLinker)
     {
-        foreach (PlayerLinker playerLinker in _allPlayerLinker.PlayerLinker)
+        foreach (PlayerLinker playerLinker in AllPlayerLinker.PlayerLinker)
         {
             if (playerLinker.ColliderPlayer == collision.collider)
             {
@@ -59,7 +63,7 @@ public class Pickable : MonoBehaviour
     public void DropItem()
     {
         Vector3 dropDirection = transform.parent.forward;
-        transform.SetParent(_allItems);
+        transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
         _rigidbody.velocity = dropDirection * _dropInitialVelocity;

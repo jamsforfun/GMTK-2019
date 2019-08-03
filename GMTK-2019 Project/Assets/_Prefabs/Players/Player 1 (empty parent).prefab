@@ -184,8 +184,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d691bfa5c682cd4b87150edd753aa2c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   AllPlayerLinker: {fileID: 0}
 --- !u!1 &1530765217501804625
 GameObject:
@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 3796428956060783653}
   - component: {fileID: 6369455721155240510}
   - component: {fileID: 7390440802878408348}
-  - component: {fileID: 4160112577936735512}
+  - component: {fileID: 5216327441480801075}
   m_Layer: 0
   m_Name: Player 1 (empty parent)
   m_TagString: Untagged
@@ -509,8 +509,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad47f9fe6c2ca004e976c0c8a4611ca9, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   PlayerManager: {fileID: 1938029674803252976}
   PlayerMove: {fileID: 3796428956060783653}
   PlayerInput: {fileID: 1712045441419825147}
@@ -521,7 +521,7 @@ MonoBehaviour:
   RenderPlayer: {fileID: 2701782621776198127}
   RenderPlayerTurn: {fileID: 3643736163344980264}
   ColliderPlayer: {fileID: 1232529281731193409}
-  PlayerObjectInteraction: {fileID: 4160112577936735512}
+  PlayerObjectInteraction: {fileID: 5216327441480801075}
 --- !u!114 &1938029674803252976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,8 +532,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f068511517f08646afe22a0e6edc99f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   PlayerSettings:
     Id: 0
     NamePlayer: Player
@@ -555,8 +555,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42e2b6acfd75c0d448453f36da5679d6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   _playerLinker: {fileID: 2528335964166722168}
   _animator: {fileID: 3236769926920762987}
   _meshRenderer: {fileID: 8461924088495356516}
@@ -571,8 +571,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd4a7c880bfc51f48b2982cdf99231e6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0}
   MoveJoystick2: {x: 0, y: 0}
   FireA: 0
@@ -593,8 +593,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5840aa6f8c56ac47a4fce983d0ed3b4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   _speedMove: 100
   _speedTurnRate: 600
   _frequencyEaseAndOut:
@@ -667,8 +667,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 886fc69cf38ad014f9f45b48f73a233e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   _playerInput: {fileID: 1712045441419825147}
   _playerLinker: {fileID: 2528335964166722168}
   AllPlayerLinker: {fileID: 0}
@@ -682,10 +682,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54d5b59e1af47d947bef3cee3c3014e2, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxSpeed: 10
   rb: {fileID: 7004218954302181079}
+--- !u!114 &5216327441480801075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796551480130450726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec8b542fe6470843923f273c633040e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6112695120246527411
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,8 +753,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -891,7 +903,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

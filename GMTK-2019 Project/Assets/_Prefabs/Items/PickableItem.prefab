@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b1fe87021a38f42a433cd66e3c4862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allItems: {fileID: 0}
+  AllItems: {fileID: 0}
+  AllPlayerLinker: {fileID: 0}
   _rigidbody: {fileID: 1078013600261537636}
   _isAvailable: 1
-  _allPlayerLinker: {fileID: 0}
   _dropInitialVelocity: 20
