@@ -378,6 +378,11 @@ public static class ExtVector3
         var componentMult = FastInvSqrt(vec1.sqrMagnitude);
         return new Vector3(vec1.x * componentMult, vec1.y * componentMult, vec1.z * componentMult);
     }
+    public static Vector2 FastNormalized(this Vector2 vec1)
+    {
+        var componentMult = FastInvSqrt(vec1.sqrMagnitude);
+        return new Vector2(vec1.x * componentMult, vec1.y * componentMult);
+    }
 
     /// <summary>
     /// Gets the normal of the triangle formed by the 3 vectors

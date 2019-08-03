@@ -162,9 +162,13 @@ public class PlayerConnected : SingletonMono<PlayerConnected>
     public Player GetPlayer(int id)
     {
         if (id == -1)
+        {
             return (ReInput.players.GetSystemPlayer());
+        }
         else if (id >= 0 && id < playerNumber)
+        {
             return (playersRewired[id]);
+        }
         Debug.LogError("problème d'id");
         return (null);
     }

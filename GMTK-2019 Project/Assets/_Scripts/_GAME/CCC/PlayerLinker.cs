@@ -7,11 +7,18 @@ using UnityEngine;
 public class PlayerLinker : MonoBehaviour
 {
     [FoldoutGroup("Object"), Tooltip("ref")]
-    public PlayerController PlayerController;
+    public PlayerManager PlayerManager;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerMove PlayerMove;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerInput PlayerInput;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public PlayerRender PlayerRender;
 
-
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public Rigidbody Rigidbody;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public Transform RenderPlayer;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public Collider ColliderPlayer;
 }

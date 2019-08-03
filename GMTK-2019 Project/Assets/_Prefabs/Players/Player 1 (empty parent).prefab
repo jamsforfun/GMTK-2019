@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108858398745701040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2701782621776198127}
@@ -133,7 +133,7 @@ Rigidbody:
   m_GameObject: {fileID: 108858398745701040}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -151,8 +151,10 @@ GameObject:
   - component: {fileID: 8962587526971640919}
   - component: {fileID: 2528335964166722168}
   - component: {fileID: 1938029674803252976}
+  - component: {fileID: 2399366367428422062}
   - component: {fileID: 1712045441419825147}
   - component: {fileID: 3796428956060783653}
+  - component: {fileID: 7390440802878408348}
   m_Layer: 0
   m_Name: Player 1 (empty parent)
   m_TagString: Untagged
@@ -187,9 +189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad47f9fe6c2ca004e976c0c8a4611ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 1938029674803252976}
+  PlayerManager: {fileID: 1938029674803252976}
   PlayerMove: {fileID: 3796428956060783653}
   PlayerInput: {fileID: 1712045441419825147}
+  PlayerRender: {fileID: 2399366367428422062}
+  Rigidbody: {fileID: 7004218954302181079}
+  RenderPlayer: {fileID: 2701782621776198127}
+  ColliderPlayer: {fileID: 1232529281731193409}
 --- !u!114 &1938029674803252976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f068511517f08646afe22a0e6edc99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IdPlayer: 0
+  PlayerSettings:
+    Id: 0
+    NamePlayer: Player
+    Material: {fileID: 0}
   _deathVibration:
     vibrateLeft: 1
     strenthLeft: 0.177
@@ -210,7 +219,20 @@ MonoBehaviour:
     vibrateRight: 1
     strenthRight: 0.488
     durationRight: 6.23
-  renderPlayer: {fileID: 8939985688688152895}
+--- !u!114 &2399366367428422062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796551480130450726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e2b6acfd75c0d448453f36da5679d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerLinker: {fileID: 2528335964166722168}
+  _meshRenderer: {fileID: 8461924088495356516}
 --- !u!114 &1712045441419825147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +246,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveInput: {x: 0, y: 0}
-  Action: 0
-  _playerController: {fileID: 1938029674803252976}
+  MoveJoystick2: {x: 0, y: 0}
+  FireA: 0
+  FireB: 0
+  FireY: 0
+  FireX: 0
+  PressJoystickButton: 0
+  Start: 0
+  Select: 0
+  _playerManager: {fileID: 1938029674803252976}
 --- !u!114 &3796428956060783653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,9 +267,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5840aa6f8c56ac47a4fce983d0ed3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMove: 5
+  _speedMove: 200
+  _moveDrag: 0
+  _stopDrag: 10
+  _playerInput: {fileID: 1712045441419825147}
   rb: {fileID: 7004218954302181079}
-  currentSpeedMove: 0
+--- !u!114 &7390440802878408348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796551480130450726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d5b59e1af47d947bef3cee3c3014e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 10
+  rb: {fileID: 7004218954302181079}
 --- !u!1 &8595954049642403797
 GameObject:
   m_ObjectHideFlags: 0

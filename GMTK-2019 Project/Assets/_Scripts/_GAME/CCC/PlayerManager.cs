@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [TypeInfoBox("Main player controller")]
-public class PlayerController : MonoBehaviour, IKillable
+public class PlayerManager : MonoBehaviour, IKillable
 {
-    [FoldoutGroup("GamePlay"), SerializeField, Tooltip("id player for input")]
-    public int IdPlayer = 0;
+    [FoldoutGroup("GamePlay"), Tooltip("ref")]
+    public PlayerSettings PlayerSettings;
 
     [FoldoutGroup("GamePlay"), SerializeField, Tooltip("death vibration")]
     private Vibration _deathVibration = new Vibration();
 
     [FoldoutGroup("Object"), Tooltip("ref script")]
+    private PlayerLinker _playerLinker;
+    [FoldoutGroup("Object"), Tooltip("ref script")]
     private PlayerInput _playerInput;
 
-    [FoldoutGroup("Object"), Tooltip("ref script")]
-    public Transform renderPlayer = null;
-
-    
-
+    public int Id { get { return (PlayerSettings.Id); } set { PlayerSettings.Id = value; } }
 
     private bool isMoving = false;
 
@@ -38,7 +36,7 @@ public class PlayerController : MonoBehaviour, IKillable
     /// </summary>
     public void GameOver()
     {
-        PlayerConnected.Instance.SetVibrationPlayer(IdPlayer, _deathVibration);
+        PlayerConnected.Instance.SetVibrationPlayer(Id, _deathVibration);
     }
 
     private void OnDisable()

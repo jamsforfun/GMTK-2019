@@ -7,26 +7,24 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
-    private float speedMove = 5f;
-    
+    private float _speedMove = 5f;
+    [FoldoutGroup("GamePlay"), Tooltip("drag when we move"), SerializeField]
+    private float _moveDrag = 0;
+    [FoldoutGroup("GamePlay"), Tooltip("drag when we stop"), SerializeField]
+    private float _stopDrag = 10f;
+
+    [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
+    private PlayerInput _playerInput;
     [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
     private Rigidbody rb = null;
-
-    [FoldoutGroup("Debug"), SerializeField, Tooltip("ref"), ReadOnly]
-    private float currentSpeedMove = 0f;
-
-    private void OnEnable()
-    {
-
-    }
 
     /// <summary>
     /// move with input
     /// </summary>
     /// <param name="direction"></param>
-    public void MovePhysics(Vector3 direction)
+    public void MovePhysics(Vector2 direction)
     {
-        //UnityMovement.MoveByForcePushing_WithPhysics(rb, direction, currentSpeedMove * entityAction.GetMagnitudeInput(minInput, 1f));
+        UnityMovement.MoveByForcePushing_WithPhysics(rb, new Vector3(direction.x, 0, direction.y), _speedMove * _playerInput.GetMagnitudeInput());
     }
 
     /// <summary>
@@ -34,23 +32,23 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        Vector3 dirMove = Vector3.zero;
-        //dirMove = entityController.GetFocusedForwardDirPlayer();
-        
+        Vector3 dirMove = _playerInput.GetMoveDirection();
         MovePhysics(dirMove);
     }
 
     /// <summary>
     /// handle move physics
     /// </summary>
-    private void FixedUpdate()
+    public void CustomFixedUpdate()
     {
-        /*if (entityController.GetMoveState() == EntityController.MoveState.Move)
+        if (_playerInput.IsMoving())
         {
+            rb.drag = _moveDrag;
             MovePlayer();
         }
-        */
+        else
+        {
+            rb.drag = _stopDrag;
+        }
     }
-
-    
 }
