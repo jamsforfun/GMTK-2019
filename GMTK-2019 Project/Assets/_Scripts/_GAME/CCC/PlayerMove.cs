@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private float _speedMove = 5f;
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
-    private AnimationCurve _easeAcceleration = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+    private FrequencyEaseAndOut _frequencyEaseAndOut = new FrequencyEaseAndOut();
 
     [FoldoutGroup("GamePlay"), Tooltip("drag when we move"), SerializeField]
     private float _moveDrag = 0;
@@ -21,13 +21,20 @@ public class PlayerMove : MonoBehaviour
     [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
     private Rigidbody rb = null;
 
+    private float GetSpeed()
+    {
+        float speed = _speedMove * _playerInput.GetMagnitudeInput();
+        speed *= _frequencyEaseAndOut.EvaluateEveryFrameIn();
+        return (speed);
+    }
+
     /// <summary>
     /// move with input
     /// </summary>
     /// <param name="direction"></param>
     public void MovePhysics(Vector2 direction)
     {
-        UnityMovement.MoveByForcePushing_WithPhysics(rb, new Vector3(direction.x, 0, direction.y), _speedMove * _playerInput.GetMagnitudeInput());
+        UnityMovement.MoveByForcePushing_WithPhysics(rb, new Vector3(direction.x, 0, direction.y), GetSpeed());
     }
 
     /// <summary>
@@ -44,7 +51,7 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     public void CustomFixedUpdate()
     {
-        if (_playerInput.IsMoving())
+        if (_playerInput.IsMoving(0))
         {
             rb.drag = _moveDrag;
             MovePlayer();
@@ -52,6 +59,7 @@ public class PlayerMove : MonoBehaviour
         else
         {
             rb.drag = _stopDrag;
+            _frequencyEaseAndOut.EvaluateEveryFrameOut();
         }
     }
 }

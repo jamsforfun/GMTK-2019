@@ -14,6 +14,8 @@ public class PlayerLinker : MonoBehaviour
     public PlayerInput PlayerInput;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerRender PlayerRender;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public PlayerAction PlayerAction;
 
     [FoldoutGroup("Object"), Tooltip("ref")]
     public Rigidbody Rigidbody;

@@ -8,6 +8,8 @@ public class PlayerRender : MonoBehaviour
 {
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerLinker _playerLinker;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private Animator _animator;
 
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private MeshRenderer _meshRenderer;
@@ -23,5 +25,10 @@ public class PlayerRender : MonoBehaviour
     {
         _text.text = text;
         _text.color = color;
+    }
+
+    public void SetAction()
+    {
+        _animator.SetTrigger("Action");
     }
 }

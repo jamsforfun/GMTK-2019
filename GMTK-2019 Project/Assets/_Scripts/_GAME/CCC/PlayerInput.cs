@@ -51,15 +51,15 @@ public class PlayerInput : MonoBehaviour
         MoveJoystick2 = new Vector2(PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetAxis("Move Horizontal Right"),
             PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetAxis("Move Vertical Right"));
 
-        FireA = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireA");
-        FireB = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireB");
-        FireY = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireY");
-        FireX = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireX");
+        FireA = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireA");
+        FireB = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireB");
+        FireY = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireY");
+        FireX = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireX");
 
-        PressJoystickButton = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("PressJoystickButton");
+        PressJoystickButton = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("PressJoystickButton");
 
-        Start = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("Start");
-        Select = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("Select");
+        Start = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("Start");
+        Select = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("Select");
     }
 
     public bool IsMoving(float margin = 0.1f)

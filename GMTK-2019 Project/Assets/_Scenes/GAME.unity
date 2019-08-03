@@ -253,6 +253,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3796551480130450726, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8962587526971640919, guid: 69dab624b51706049af297602b665d4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -618,6 +623,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3796551480130450726, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8962587526971640919, guid: 69dab624b51706049af297602b665d4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -824,21 +834,13 @@ MonoBehaviour:
   - {fileID: 1939062229}
   - {fileID: 252605376}
   ReferenceButtonPlayer:
-  - IdButton: 0
-    TextButton: A
-    Material: {fileID: 2100000, guid: 71504b4423232484688a9ecec8ea1c19, type: 2}
+  - TextButton: A
     PlayerLinker: {fileID: 6087745624777668048}
-  - IdButton: 1
-    TextButton: B
-    Material: {fileID: 2100000, guid: a5df6ae5ac4315144b5bfa4bcb512da5, type: 2}
+  - TextButton: B
     PlayerLinker: {fileID: 1017669683}
-  - IdButton: 2
-    TextButton: Y
-    Material: {fileID: 2100000, guid: b6571e1680befe04983f2c4f0f69b182, type: 2}
+  - TextButton: Y
     PlayerLinker: {fileID: 1939062229}
-  - IdButton: 3
-    TextButton: X
-    Material: {fileID: 2100000, guid: 4b8dacaa1ffa57b4ab35973b454635f9, type: 2}
+  - TextButton: X
     PlayerLinker: {fileID: 252605376}
 --- !u!114 &1882460189
 MonoBehaviour:
@@ -2309,6 +2311,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3796551480130450726, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8962587526971640919, guid: 69dab624b51706049af297602b665d4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2756,6 +2763,41 @@ PrefabInstance:
       propertyPath: PlayerSettings.Material
       value: 
       objectReference: {fileID: 2100000, guid: 71504b4423232484688a9ecec8ea1c19, type: 2}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveOut.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.data[1].time
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveOut.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveOut.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveOut.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8461924088495356516, guid: 69dab624b51706049af297602b665d4e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

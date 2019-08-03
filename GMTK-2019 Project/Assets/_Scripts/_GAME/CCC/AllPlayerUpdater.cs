@@ -17,6 +17,10 @@ public class AllPlayerUpdater : MonoBehaviour
             _allPlayerLinker.PlayerLinker[i].transform.name = _allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.NamePlayer + " " + i;
             _allPlayerLinker.PlayerLinker[i].PlayerRender.SetMaterial(_allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.Material);
             _allPlayerLinker.PlayerLinker[i].PlayerRender.SetText(_allPlayerLinker.ReferenceButtonPlayer[i].TextButton, _allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.Material.color);
+            if (_allPlayerLinker.PlayerLinker[i].PlayerAction.AllPlayerLinker == null)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerAction.AllPlayerLinker = _allPlayerLinker;
+            }
         }
     }
 
@@ -27,7 +31,11 @@ public class AllPlayerUpdater : MonoBehaviour
     {
         for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
-            _allPlayerLinker.PlayerLinker[i].PlayerInput.CustomUpdate();
+            if (_allPlayerLinker.PlayerLinker[i].gameObject.activeInHierarchy)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerInput.CustomUpdate();
+                _allPlayerLinker.PlayerLinker[i].PlayerAction.CustomUpdate();
+            }
         }
     }
 
@@ -38,7 +46,10 @@ public class AllPlayerUpdater : MonoBehaviour
     {
         for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
-            _allPlayerLinker.PlayerLinker[i].PlayerMove.CustomFixedUpdate();
+            if (_allPlayerLinker.PlayerLinker[i].gameObject.activeInHierarchy)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerMove.CustomFixedUpdate();
+            }
         }
     }
 
