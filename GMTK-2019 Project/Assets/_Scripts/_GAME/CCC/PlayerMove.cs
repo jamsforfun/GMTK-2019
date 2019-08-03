@@ -67,6 +67,12 @@ public class PlayerMove : MonoBehaviour
         return (_playerLinker.RenderPlayerTurn.rotation);
     }
 
+    public void ApplyImpulse(Vector3 normalizeDirection, float intensity)
+    {
+        _playerLinker.PlayerParticle.LaunchCollideAgainst(normalizeDirection);
+        _playerLinker.Rigidbody.AddForce(normalizeDirection * intensity, ForceMode.Impulse);
+    }
+
     /// <summary>
     /// move in physics, according to input of player
     /// </summary>
