@@ -32,6 +32,8 @@ public class PlayerInput : MonoBehaviour
 
     [FoldoutGroup("Object"), Tooltip("id unique du joueur correspondant à sa manette"), SerializeField]
     private PlayerManager _playerManager = default;
+    [FoldoutGroup("Object"), Tooltip("id unique du joueur correspondant à sa manette"), SerializeField]
+    private PlayerLinker _playerLinker;
 
 
     private void OnEnable()
@@ -51,20 +53,31 @@ public class PlayerInput : MonoBehaviour
         MoveJoystick2 = new Vector2(PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetAxis("Move Horizontal Right"),
             PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetAxis("Move Vertical Right"));
 
-        FireA = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireA");
-        FireB = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireB");
-        FireY = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireY");
-        FireX = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("FireX");
+        FireA = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireA");
+        FireB = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireB");
+        FireY = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireY");
+        FireX = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("FireX");
 
-        PressJoystickButton = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("PressJoystickButton");
+        PressJoystickButton = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("PressJoystickButton");
 
-        Start = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("Start");
-        Select = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButton("Select");
+        Start = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("Start");
+        Select = PlayerConnected.Instance.GetPlayer(_playerManager.Id).GetButtonUp("Select");
     }
 
     public bool IsMoving(float margin = 0.1f)
     {
         return (MoveInput.sqrMagnitude > margin);
+    }
+
+    /// <summary>
+    /// get the relative direction 
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetRelativeDirection(float xBoost = 1, float yBoost = 1)
+    {
+        Vector2 dirInput = GetMoveDirection();
+        Vector2 relativeDirection = _playerLinker.RenderPlayerTurn.right * dirInput.x * xBoost + _playerLinker.RenderPlayerTurn.forward * dirInput.y * yBoost;
+        return (relativeDirection);
     }
 
     public Vector2 GetMoveDirection(bool normalize = true)

@@ -8,6 +8,11 @@ public class PlayerMove : MonoBehaviour
 {
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private float _speedMove = 5f;
+    [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
+    private float _speedTurnRate = 600f;
+    [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
+    private FrequencyEaseAndOut _frequencyEaseAndOut = new FrequencyEaseAndOut();
+
     [FoldoutGroup("GamePlay"), Tooltip("drag when we move"), SerializeField]
     private float _moveDrag = 0;
     [FoldoutGroup("GamePlay"), Tooltip("drag when we stop"), SerializeField]
@@ -16,7 +21,29 @@ public class PlayerMove : MonoBehaviour
     [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
     private PlayerInput _playerInput;
     [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
+    private PlayerLinker _playerLinker;
+    [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
     private Rigidbody rb = null;
+
+    private Vector3 _lastDirection;
+    private Quaternion _wantedDirection;
+
+    private float GetSpeed()
+    {
+        float speed = _speedMove * _playerInput.GetMagnitudeInput();
+        speed *= _frequencyEaseAndOut.EvaluateEveryFrameIn();
+        return (speed);
+    }
+
+    public Vector3 GetLastDirection()
+    {
+        return (_lastDirection);
+    }
+
+    public void Awake()
+    {
+        _lastDirection = _playerLinker.transform.forward;
+    }
 
     /// <summary>
     /// move with input
@@ -24,7 +51,31 @@ public class PlayerMove : MonoBehaviour
     /// <param name="direction"></param>
     public void MovePhysics(Vector2 direction)
     {
-        UnityMovement.MoveByForcePushing_WithPhysics(rb, new Vector3(direction.x, 0, direction.y), _speedMove * _playerInput.GetMagnitudeInput());
+        UnityMovement.MoveByForcePushing_WithPhysics(rb, new Vector3(direction.x, 0, direction.y), GetSpeed());
+    }
+
+    /// <summary>
+    /// get the wanted direction of the Render who turn
+    /// </summary>
+    /// <returns></returns>
+    public Quaternion GetWantedDirection()
+    {
+        return (_wantedDirection);
+    }
+
+    /// <summary>
+    /// get the current direction of the Render who turn
+    /// </summary>
+    /// <returns></returns>
+    public Quaternion GetCurrentDirection()
+    {
+        return (_playerLinker.RenderPlayerTurn.rotation);
+    }
+
+    public void ApplyImpulse(Vector3 normalizeDirection, float intensity)
+    {
+        _playerLinker.PlayerParticle.LaunchCollideAgainst(normalizeDirection);
+        _playerLinker.Rigidbody.AddForce(normalizeDirection * intensity, ForceMode.Impulse);
     }
 
     /// <summary>
@@ -32,8 +83,27 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        Vector3 dirMove = _playerInput.GetMoveDirection();
-        MovePhysics(dirMove);
+        _lastDirection = _playerInput.GetMoveDirection();
+
+        if (_playerLinker.GroundForwardCheck.IsStraffNeeded())
+        {
+            //Debug.Log("move Straff");
+            //_playerLinker.PlayerSlide.CalculateStraffDirection();
+            Vector3 straffDir = _playerLinker.PlayerSlide.GetStraffDirection();
+            MovePhysics(straffDir);
+        }
+        else
+        {
+            MovePhysics(_lastDirection);
+        }
+
+        //_lastDirection = _playerInput.GetMoveDirection();
+        //MovePhysics(_lastDirection);
+    }
+
+    private void TurnRender()
+    {
+        _playerLinker.RenderPlayerTurn.rotation = ExtQuaternion.DirObject2d(_playerLinker.RenderPlayerTurn.rotation, _lastDirection, _speedTurnRate, out _wantedDirection, ExtQuaternion.TurnType.Y);
     }
 
     /// <summary>
@@ -41,7 +111,7 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     public void CustomFixedUpdate()
     {
-        if (_playerInput.IsMoving())
+        if (_playerInput.IsMoving(0))
         {
             rb.drag = _moveDrag;
             MovePlayer();
@@ -49,6 +119,8 @@ public class PlayerMove : MonoBehaviour
         else
         {
             rb.drag = _stopDrag;
+            _frequencyEaseAndOut.EvaluateEveryFrameOut();
         }
+        TurnRender();
     }
 }

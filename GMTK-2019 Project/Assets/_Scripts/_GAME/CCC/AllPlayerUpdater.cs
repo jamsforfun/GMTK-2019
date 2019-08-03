@@ -7,15 +7,26 @@ using UnityEngine;
 public class AllPlayerUpdater : MonoBehaviour
 {
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private GameState _gameState;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private AllPlayerLinker _allPlayerLinker;
 
     private void SetInEditorIdPlayer()
     {
-        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Count; i++)
+        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
             _allPlayerLinker.PlayerLinker[i].PlayerManager.Id = i;
             _allPlayerLinker.PlayerLinker[i].transform.name = _allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.NamePlayer + " " + i;
             _allPlayerLinker.PlayerLinker[i].PlayerRender.SetMaterial(_allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.Material);
+            _allPlayerLinker.PlayerLinker[i].PlayerRender.SetText(_allPlayerLinker.ReferenceButtonPlayer[i].TextButton, _allPlayerLinker.PlayerLinker[i].PlayerManager.PlayerSettings.Material.color);
+            if (_allPlayerLinker.PlayerLinker[i].PlayerAction.AllPlayerLinker == null)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerAction.AllPlayerLinker = _allPlayerLinker;
+            }
+            if (_allPlayerLinker.PlayerLinker[i].PlayerCollide.AllPlayerLinker == null)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerCollide.AllPlayerLinker = _allPlayerLinker;
+            }
         }
     }
 
@@ -24,9 +35,13 @@ public class AllPlayerUpdater : MonoBehaviour
     /// </summary>
     private void UpdateAllPlayer()
     {
-        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Count; i++)
+        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
-            _allPlayerLinker.PlayerLinker[i].PlayerInput.CustomUpdate();
+            if (_allPlayerLinker.PlayerLinker[i].gameObject.activeInHierarchy)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerInput.CustomUpdate();
+                _allPlayerLinker.PlayerLinker[i].PlayerAction.CustomUpdate();
+            }
         }
     }
 
@@ -35,9 +50,12 @@ public class AllPlayerUpdater : MonoBehaviour
     /// </summary>
     private void FixedUpdateAllPlayer()
     {
-        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Count; i++)
+        for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
         {
-            _allPlayerLinker.PlayerLinker[i].PlayerMove.CustomFixedUpdate();
+            if (_allPlayerLinker.PlayerLinker[i].gameObject.activeInHierarchy)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerMove.CustomFixedUpdate();
+            }
         }
     }
 
@@ -50,12 +68,19 @@ public class AllPlayerUpdater : MonoBehaviour
         {
             return;
         }
-
+        if (!_gameState.CanMovePlayer())
+        {
+            return;
+        }
         UpdateAllPlayer();
     }
 
     public void FixedUpdate()
     {
+        if (!_gameState.CanMovePlayer())
+        {
+            return;
+        }
         FixedUpdateAllPlayer();
     }
 }
