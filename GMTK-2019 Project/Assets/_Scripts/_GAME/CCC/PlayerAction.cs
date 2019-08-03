@@ -13,6 +13,9 @@ public class PlayerAction : MonoBehaviour
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     public AllPlayerLinker AllPlayerLinker;
 
+    private ItemTransfer _itemtranfer = default;
+
+
     /// <summary>
     /// Execute an action on this player
     /// </summary>
@@ -26,7 +29,23 @@ public class PlayerAction : MonoBehaviour
         else
         {
             //here we attack other
+            if (_itemtranfer != null)
+            {
+                _itemtranfer.TransferItemToPlayer(playerAttack);
+                RemoveItem();
+            }
         }
+    }
+
+    private void RemoveItem()
+    {
+        _playerLinker.PlayerObjectInteraction.RemoveItem();
+        _itemtranfer = null;
+    }
+
+    public void SetCurrentItem(ItemTransfer currentItem)
+    {
+        _itemtranfer = currentItem;
     }
 
     /// <summary>
