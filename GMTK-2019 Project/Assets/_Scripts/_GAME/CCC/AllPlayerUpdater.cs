@@ -21,6 +21,10 @@ public class AllPlayerUpdater : MonoBehaviour
             {
                 _allPlayerLinker.PlayerLinker[i].PlayerAction.AllPlayerLinker = _allPlayerLinker;
             }
+            if (_allPlayerLinker.PlayerLinker[i].PlayerCollide.AllPlayerLinker == null)
+            {
+                _allPlayerLinker.PlayerLinker[i].PlayerCollide.AllPlayerLinker = _allPlayerLinker;
+            }
         }
     }
 

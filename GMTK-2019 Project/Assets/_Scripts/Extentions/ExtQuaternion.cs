@@ -287,18 +287,18 @@ public static class ExtQuaternion
     /// <param name="turnRate"></param>
     /// <param name="typeRotation"></param>
     /// <returns></returns>
-    public static Quaternion DirObject2d(this Quaternion rotation, Vector2 dir, float turnRate, TurnType typeRotation = TurnType.Z)
+    public static Quaternion DirObject2d(this Quaternion rotation, Vector2 dir, float turnRate, out Quaternion targetRotation, TurnType typeRotation = TurnType.Z)
     {
         float heading = Mathf.Atan2(-dir.x * turnRate * Time.deltaTime, dir.y * turnRate * Time.deltaTime);
 
-        Quaternion _targetRotation = Quaternion.identity;
+        targetRotation = Quaternion.identity;
 
         float x = (typeRotation == TurnType.X) ? heading * 1 * Mathf.Rad2Deg : 0;
         float y = (typeRotation == TurnType.Y) ? heading * -1 * Mathf.Rad2Deg : 0;
         float z = (typeRotation == TurnType.Z) ? heading * -1 * Mathf.Rad2Deg : 0;
 
-        _targetRotation = Quaternion.Euler(x, y, z);
-        rotation = Quaternion.RotateTowards(rotation, _targetRotation, turnRate * Time.deltaTime);
+        targetRotation = Quaternion.Euler(x, y, z);
+        rotation = Quaternion.RotateTowards(rotation, targetRotation, turnRate * Time.deltaTime);
         return (rotation);
     }
 

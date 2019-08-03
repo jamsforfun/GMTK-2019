@@ -38,4 +38,19 @@ public class AllPlayerLinker : MonoBehaviour
         }
         return (null);
     }
+
+    public bool IsThatColliderIsAPlayer(Collider isPlayer, out PlayerLinker playerLinker)
+    {
+        playerLinker = null;
+
+        for (int i = 0; i < PlayerLinker.Length; i++)
+        {
+            if (PlayerLinker[i].ColliderPlayer.GetInstanceID() == isPlayer.GetInstanceID())
+            {
+                playerLinker = PlayerLinker[i];
+                return (true);
+            }
+        }
+        return (false);
+    }
 }

@@ -16,6 +16,8 @@ public class PlayerLinker : MonoBehaviour
     public PlayerRender PlayerRender;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerAction PlayerAction;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public PlayerCollide PlayerCollide;
 
     [FoldoutGroup("Object"), Tooltip("ref")]
     public Rigidbody Rigidbody;

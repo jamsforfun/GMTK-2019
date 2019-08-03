@@ -26,6 +26,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb = null;
 
     private Vector3 _lastDirection;
+    private Quaternion _wantedDirection;
 
     private float GetSpeed()
     {
@@ -49,6 +50,24 @@ public class PlayerMove : MonoBehaviour
     }
 
     /// <summary>
+    /// get the wanted direction of the Render who turn
+    /// </summary>
+    /// <returns></returns>
+    public Quaternion GetWantedDirection()
+    {
+        return (_wantedDirection);
+    }
+
+    /// <summary>
+    /// get the current direction of the Render who turn
+    /// </summary>
+    /// <returns></returns>
+    public Quaternion GetCurrentDirection()
+    {
+        return (_playerLinker.RenderPlayerTurn.rotation);
+    }
+
+    /// <summary>
     /// move in physics, according to input of player
     /// </summary>
     private void MovePlayer()
@@ -59,7 +78,7 @@ public class PlayerMove : MonoBehaviour
 
     private void TurnRender()
     {
-        _playerLinker.RenderPlayerTurn.rotation = ExtQuaternion.DirObject2d(_playerLinker.RenderPlayerTurn.rotation, _lastDirection, _speedTurnRate, ExtQuaternion.TurnType.Y);
+        _playerLinker.RenderPlayerTurn.rotation = ExtQuaternion.DirObject2d(_playerLinker.RenderPlayerTurn.rotation, _lastDirection, _speedTurnRate, out _wantedDirection, ExtQuaternion.TurnType.Y);
     }
 
     /// <summary>
