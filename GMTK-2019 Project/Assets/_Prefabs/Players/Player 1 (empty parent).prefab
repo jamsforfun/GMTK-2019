@@ -578,6 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedMove: 100
+  _speedTurnRate: 600
   _frequencyEaseAndOut:
     _animationCurveIn:
       serializedVersion: 2
@@ -636,6 +637,7 @@ MonoBehaviour:
   _moveDrag: 0
   _stopDrag: 10
   _playerInput: {fileID: 1712045441419825147}
+  _playerLinker: {fileID: 2528335964166722168}
   rb: {fileID: 7004218954302181079}
 --- !u!114 &6369455721155240510
 MonoBehaviour:

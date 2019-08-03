@@ -9,6 +9,8 @@ public class PlayerMove : MonoBehaviour
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private float _speedMove = 5f;
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
+    private float _speedTurnRate = 600f;
+    [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private FrequencyEaseAndOut _frequencyEaseAndOut = new FrequencyEaseAndOut();
 
     [FoldoutGroup("GamePlay"), Tooltip("drag when we move"), SerializeField]
@@ -19,13 +21,22 @@ public class PlayerMove : MonoBehaviour
     [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
     private PlayerInput _playerInput;
     [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
+    private PlayerLinker _playerLinker;
+    [FoldoutGroup("Object"), SerializeField, Tooltip("ref")]
     private Rigidbody rb = null;
+
+    private Vector3 _lastDirection;
 
     private float GetSpeed()
     {
         float speed = _speedMove * _playerInput.GetMagnitudeInput();
         speed *= _frequencyEaseAndOut.EvaluateEveryFrameIn();
         return (speed);
+    }
+
+    public void Awake()
+    {
+        _lastDirection = _playerLinker.transform.forward;
     }
 
     /// <summary>
@@ -42,8 +53,13 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        Vector3 dirMove = _playerInput.GetMoveDirection();
-        MovePhysics(dirMove);
+        _lastDirection = _playerInput.GetMoveDirection();
+        MovePhysics(_lastDirection);
+    }
+
+    private void TurnRender()
+    {
+        _playerLinker.RenderPlayerTurn.rotation = ExtQuaternion.DirObject2d(_playerLinker.RenderPlayerTurn.rotation, _lastDirection, _speedTurnRate, ExtQuaternion.TurnType.Y);
     }
 
     /// <summary>
@@ -61,6 +77,6 @@ public class PlayerMove : MonoBehaviour
             rb.drag = _stopDrag;
             _frequencyEaseAndOut.EvaluateEveryFrameOut();
         }
-
+        TurnRender();
     }
 }
