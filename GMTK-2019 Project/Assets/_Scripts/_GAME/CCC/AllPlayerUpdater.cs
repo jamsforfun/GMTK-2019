@@ -7,6 +7,8 @@ using UnityEngine;
 public class AllPlayerUpdater : MonoBehaviour
 {
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private GameState _gameState;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private AllPlayerLinker _allPlayerLinker;
 
     private void SetInEditorIdPlayer()
@@ -66,12 +68,19 @@ public class AllPlayerUpdater : MonoBehaviour
         {
             return;
         }
-
+        if (!_gameState.CanMovePlayer())
+        {
+            return;
+        }
         UpdateAllPlayer();
     }
 
     public void FixedUpdate()
     {
+        if (!_gameState.CanMovePlayer())
+        {
+            return;
+        }
         FixedUpdateAllPlayer();
     }
 }

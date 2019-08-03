@@ -8,6 +8,9 @@ public class PlayerCollide : MonoBehaviour
     [FoldoutGroup("GamePlay"), Tooltip("ref"), SerializeField]
     private float _impulseForce = 50f;
 
+    [FoldoutGroup("GamePlay"), SerializeField, Tooltip("death vibration")]
+    private Vibration HitVibration = new Vibration();
+
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private PlayerLinker _playerLinker;
 
@@ -25,6 +28,7 @@ public class PlayerCollide : MonoBehaviour
         {
             Debug.Log("collide with " + player);
             player.PlayerMove.ApplyImpulse((player.Rigidbody.transform.position - _playerLinker.Rigidbody.transform.position).FastNormalized(), _impulseForce);
+            PlayerConnected.Instance.SetVibrationPlayer(player.PlayerManager.Id, player.PlayerCollide.HitVibration);
         }
     }
 }
