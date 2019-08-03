@@ -564,11 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061bda68ca3f0d743b20fd19f11c74de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScenesToLoad:
-  - SceneName: 1_MENU
-    ScenePath: Assets/_Scenes/
-  - SceneName: 2_GAME
-    ScenePath: Assets/_Scenes/
+  SceneNames: {fileID: 11400000, guid: fdd83d08db79f6249ae323399d776168, type: 2}
 --- !u!4 &981852459
 Transform:
   m_ObjectHideFlags: 0

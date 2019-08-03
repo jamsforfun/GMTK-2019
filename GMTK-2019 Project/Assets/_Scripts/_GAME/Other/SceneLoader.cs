@@ -13,15 +13,8 @@ using UnityEngine.Serialization;
 [TypeInfoBox("Manage Loading/unloading of RaceTracks")]
 public class SceneLoader : MonoBehaviour
 {
-    [Serializable]
-    public struct SceneToLoad
-    {
-        public string SceneName;
-        public string ScenePath;       
-    }
-
-    [FoldoutGroup("GamePlay")]
-    public List<SceneToLoad> ScenesToLoad = new List<SceneToLoad>();
+    [FoldoutGroup("GamePlay"), InlineEditor()]
+    public SceneNames SceneNames;
 
     private bool closing = false;
 
@@ -32,9 +25,9 @@ public class SceneLoader : MonoBehaviour
     [FoldoutGroup("Debug"), Button]
     public void LoadSceneByName(string nameSceneToLoad)
     {
-        for (int i = 0; i < ScenesToLoad.Count; i++)
+        for (int i = 0; i < SceneNames.ScenesToLoad.Count; i++)
         {
-            if (string.Equals(ScenesToLoad[i].SceneName, nameSceneToLoad))
+            if (string.Equals(SceneNames.ScenesToLoad[i].SceneName, nameSceneToLoad))
             {
                 LoadSceneByTrackIndex(i);
             }
@@ -51,12 +44,12 @@ public class SceneLoader : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            SceneManager.LoadSceneAsync(ScenesToLoad[index].SceneName, LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync(SceneNames.ScenesToLoad[index].SceneName, LoadSceneMode.Single);
         }
 #if UNITY_EDITOR
         else
         {
-            EditorSceneManager.OpenScene(ScenesToLoad[index].ScenePath + ScenesToLoad[index].SceneName + ".unity", OpenSceneMode.Single);
+            EditorSceneManager.OpenScene(SceneNames.ScenesToLoad[index].ScenePath + SceneNames.ScenesToLoad[index].SceneName + ".unity", OpenSceneMode.Single);
         }
 #endif
         return (true);
@@ -71,12 +64,12 @@ public class SceneLoader : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            SceneManager.UnloadSceneAsync(ScenesToLoad[index].ScenePath);
+            SceneManager.UnloadSceneAsync(SceneNames.ScenesToLoad[index].ScenePath);
         }
 #if UNITY_EDITOR
         else
         {
-            EditorSceneManager.CloseScene(SceneManager.GetSceneByName(ScenesToLoad[index].SceneName), true);
+            EditorSceneManager.CloseScene(SceneManager.GetSceneByName(SceneNames.ScenesToLoad[index].SceneName), true);
         }
 #endif
         return (true);
