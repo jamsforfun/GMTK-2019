@@ -1,0 +1,1 @@
+﻿public enum pickableinput { plastique, cuivre , manette, manettesansbouton, console, xboxone, circuitimprime, boitier };

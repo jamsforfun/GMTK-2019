@@ -10,7 +10,9 @@ public class Pickable : MonoBehaviour
     [SerializeField] private bool _isAvailable = true;
     [SerializeField] private AllPlayerLinker _allPlayerLinker = default;
     [SerializeField] private float _dropInitialVelocity = 1f;
+    [SerializeField] private pickableinput _pickableType;
     private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
+    
 
     //Comment to commit
 
@@ -63,5 +65,10 @@ public class Pickable : MonoBehaviour
         _isAvailable = true;
         _rigidbody.isKinematic = false;
         _rigidbody.velocity = dropDirection * _dropInitialVelocity;
+    }
+
+    public pickableinput PickableType
+    {
+        get { return _pickableType; }
     }
 }
