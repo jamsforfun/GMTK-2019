@@ -18,7 +18,6 @@ public class PlayerObjectInteraction : MonoBehaviour
         else
         {
             _currentItem.DropItem();
-            Debug.Log("Item dropped");
             _currentItem = newItem;
             hasItemSwapped = true;
         }
