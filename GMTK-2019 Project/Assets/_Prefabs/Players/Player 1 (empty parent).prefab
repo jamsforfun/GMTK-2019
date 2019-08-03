@@ -512,6 +512,8 @@ GameObject:
   - component: {fileID: 8962587526971640919}
   - component: {fileID: 2528335964166722168}
   - component: {fileID: 1938029674803252976}
+  - component: {fileID: 9133912614535102855}
+  - component: {fileID: 624506198516311253}
   - component: {fileID: 2399366367428422062}
   - component: {fileID: 1712045441419825147}
   - component: {fileID: 3796428956060783653}
@@ -565,6 +567,8 @@ MonoBehaviour:
   RenderPlayerTurn: {fileID: 3643736163344980264}
   ColliderPlayer: {fileID: 1232529281731193409}
   PlayerObjectInteraction: {fileID: 5216327441480801075}
+  GroundForwardCheck: {fileID: 624506198516311253}
+  PlayerSlide: {fileID: 9133912614535102855}
 --- !u!114 &1938029674803252976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +592,51 @@ MonoBehaviour:
     vibrateRight: 1
     strenthRight: 0.875
     durationRight: 0.3
+  _playerLinker: {fileID: 2528335964166722168}
+  _playerInput: {fileID: 1712045441419825147}
+--- !u!114 &9133912614535102855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796551480130450726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b1451813f33ab4b8d239e8b7aaeba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dotMarginNiceSlope: 0.3
+  minMaxMagnitude: {x: 0, y: 0.7}
+  minMagnitudeSlideWhenCastRightOrLeft: 0.4
+  _playerLinker: {fileID: 2528335964166722168}
+  _groundForwardCheck: {fileID: 624506198516311253}
+  rb: {fileID: 7004218954302181079}
+--- !u!114 &624506198516311253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796551480130450726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8992aacfa70cd14eb241d5130389002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetween2TestForward: 0.8
+  distForward: 0.6
+  sizeRadiusForward: 0.3
+  dotMarginImpact: 0.3
+  upDistRaycast: 0.1
+  lateralDistRaycast: 0.3
+  distForwardRaycast: 1
+  isAdvancedForward: 0
+  isForwardAdvanceRightOrLeft: 2
+  layerMask: -1
+  _playerSlide: {fileID: 9133912614535102855}
+  _playerLinker: {fileID: 2528335964166722168}
+  collRayCastMargin: 0.1
 --- !u!114 &2399366367428422062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +675,7 @@ MonoBehaviour:
   Start: 0
   Select: 0
   _playerManager: {fileID: 1938029674803252976}
+  _playerLinker: {fileID: 2528335964166722168}
 --- !u!114 &3796428956060783653
 MonoBehaviour:
   m_ObjectHideFlags: 0

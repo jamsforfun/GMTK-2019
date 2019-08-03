@@ -10,7 +10,7 @@ public class PlayerAction : MonoBehaviour
     private PlayerInput _playerInput;
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private PlayerLinker _playerLinker;
-    [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
+    [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField, ReadOnly]
     public AllPlayerLinker AllPlayerLinker;
 
     /// <summary>
