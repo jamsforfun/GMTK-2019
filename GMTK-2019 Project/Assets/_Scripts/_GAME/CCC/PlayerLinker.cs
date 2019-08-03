@@ -21,4 +21,7 @@ public class PlayerLinker : MonoBehaviour
     public Transform RenderPlayer;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public Collider ColliderPlayer;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public PlayerObjectInteraction PlayerObjectInteraction;
+
 }
