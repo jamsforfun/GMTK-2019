@@ -177,11 +177,20 @@ public class PlayerConnected : SingletonMono<PlayerConnected>
     /// </summary>
     /// <param name="action"></param>
     /// <returns></returns>
-    public bool getButtonDownFromAnyGamePad(string action)
+    public bool GetButtonDownFromAnyGamePad(string action)
     {
         for (int i = 0; i < playersRewired.Length; i++)
         {
             if (playersRewired[i].GetButtonDown(action))
+                return (true);
+        }
+        return (false);
+    }
+    public bool GetButtonUpFromAnyGamePad(string action)
+    {
+        for (int i = 0; i < playersRewired.Length; i++)
+        {
+            if (playersRewired[i].GetButtonUp(action))
                 return (true);
         }
         return (false);
@@ -191,7 +200,7 @@ public class PlayerConnected : SingletonMono<PlayerConnected>
     /// set les vibrations du gamepad
     /// </summary>
     /// <param name="id">l'id du joueur</param>
-    public void setVibrationPlayer(int id, int motorIndex = 0, float motorLevel = 1.0f, float duration = 1.0f)
+    public void SetVibrationPlayer(int id, int motorIndex = 0, float motorLevel = 1.0f, float duration = 1.0f)
     {
         if (!enabledVibration)
             return;
