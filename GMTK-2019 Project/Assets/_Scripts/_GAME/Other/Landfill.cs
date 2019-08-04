@@ -11,6 +11,8 @@ public class Landfill : MonoBehaviour
 
     [FoldoutGroup("GamePlay"), Tooltip(""), SerializeField]
     public string[] PlayerLayer = new string[] { "Player"};
+    [FoldoutGroup("GamePlay"), Tooltip(""), SerializeField]
+    private Pickable[] _prefabsPickable;
 
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     public AllPlayerLinker AllPlayerLinker;
@@ -42,7 +44,7 @@ public class Landfill : MonoBehaviour
                 continue;
             }
             LandfilOnPlayer landfil = linker.LandfilOnPlayer;
-            landfil.SetInside(this);
+            landfil.SetInside(this, _prefabsPickable.RandomItem());
         }
 
         for (int i = 0; i < AllPlayerLinker.PlayerLinker.Length; i++)
