@@ -20,6 +20,8 @@ public class PlayerLinker : MonoBehaviour
     public PlayerCollide PlayerCollide;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerParticle PlayerParticle;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public LandfilOnPlayer LandfilOnPlayer;
 
     [FoldoutGroup("Object"), Tooltip("ref")]
     public Rigidbody Rigidbody;
