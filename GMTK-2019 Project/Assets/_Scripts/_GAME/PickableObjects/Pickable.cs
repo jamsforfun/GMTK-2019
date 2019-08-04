@@ -16,6 +16,8 @@ public class Pickable : MonoBehaviour, IKillable
 
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
+    [SerializeField] private pickableinput _pickableType;
+
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
@@ -99,5 +101,10 @@ public class Pickable : MonoBehaviour, IKillable
     {
         Instantiate(_particlePrefabsToCreate, transform.position, Quaternion.identity, null);
         Destroy(gameObject);
+    }
+
+    public pickableinput PickableType
+    {
+        get { return _pickableType; }
     }
 }
