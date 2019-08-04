@@ -29,7 +29,10 @@ public class Landfill : MonoBehaviour
     private void Update()
     {
         ExtDrawGuizmos.DebugWireSphere(transform.position, Color.red, Range);
-
+        if (AllPlayerLinker == null)
+        {
+            AllPlayerLinker = ExtUtilityFunction.GetScript<AllPlayerLinker>();
+        }
         if (!Application.isPlaying)
         {
             return;

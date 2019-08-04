@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[TypeInfoBox("Player Move forward locally")]
+[ExecuteInEditMode, TypeInfoBox("Player Move forward locally")]
 public class PlayerLinker : MonoBehaviour
 {
     [FoldoutGroup("Object"), Tooltip("ref")]
@@ -44,4 +44,17 @@ public class PlayerLinker : MonoBehaviour
     {
         AllPlayerLinker = allPlayerLinker;
     }
+
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (!Application.isPlaying)
+        {
+            if (AllPlayerLinker == null)
+            {
+                AllPlayerLinker = ExtUtilityFunction.GetScript<AllPlayerLinker>();
+            }
+        }
+    }
+#endif 
 }

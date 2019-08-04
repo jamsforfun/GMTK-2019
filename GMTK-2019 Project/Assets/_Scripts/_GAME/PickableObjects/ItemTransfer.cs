@@ -37,9 +37,11 @@ public class ItemTransfer : MonoBehaviour
         {
             return;
         }
+        _transferPhase = TransferPhase.None;
         IsInTransfer = true;
         _isSnapping = true;
         _targetPlayerTransform = playerLinker.Rigidbody.transform;
+        Debug.Break();
     }
 
     private void FixedUpdate()

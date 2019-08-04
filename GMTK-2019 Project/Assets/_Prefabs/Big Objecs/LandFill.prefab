@@ -184,4 +184,6 @@ MonoBehaviour:
   Range: 2.4
   PlayerLayer:
   - Player
+  _prefabsPickable:
+  - {fileID: 1078013600261537637, guid: 084218430f9fb024da50c1fa3a8e80e4, type: 3}
   AllPlayerLinker: {fileID: 0}
