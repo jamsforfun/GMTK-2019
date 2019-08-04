@@ -75,9 +75,8 @@ public class PlayerInput : MonoBehaviour
     /// <returns></returns>
     public Vector3 GetRelativeDirection(float xBoost = 1, float yBoost = 1)
     {
-        Vector2 dirInput = GetMoveDirection();
-        Vector2 relativeDirection = _playerLinker.RenderPlayerTurn.right * dirInput.x * xBoost + _playerLinker.RenderPlayerTurn.forward * dirInput.y * yBoost;
-        return (relativeDirection);
+        //Vector2 dirInput = GetMoveDirection();
+        return (_playerLinker.RenderPlayerTurn.transform.forward);
     }
 
     public Vector2 GetMoveDirection(bool normalize = true)

@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1078013600261537638}
+  - component: {fileID: 1078013600261537637}
+  - component: {fileID: -6019708200141627545}
   - component: {fileID: 1078013600261537633}
   - component: {fileID: 1078013600261537634}
   - component: {fileID: 1078013600261537635}
   - component: {fileID: 1078013600261537636}
-  - component: {fileID: 1078013600261537637}
-  - component: {fileID: -6019708200141627545}
   m_Layer: 0
   m_Name: PickableItem
   m_TagString: Untagged
@@ -37,6 +37,72 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1078013600261537637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078013600261537639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b1fe87021a38f42a433cd66e3c4862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isAvailable: 1
+  _dropInitialVelocity: 20
+  _timeBeforeGetBackTheItem: 0.3
+  _rigidbody: {fileID: 1078013600261537636}
+  _itemTransfer: {fileID: -6019708200141627545}
+  _playerLinker: {fileID: 0}
+  _particlePrefabsToCreate: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    type: 3}
+  AllItems: {fileID: 0}
+  AllPlayerLinker: {fileID: 0}
+--- !u!114 &-6019708200141627545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078013600261537639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2795124e7bff14b9f2af3eeb0c5adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 1078013600261537636}
+  _pickable: {fileID: 1078013600261537637}
+  _angularVelocity: 200
+  _highSpeedValue: 32
+  _normalSpeedValue: 16
+  _highSpeedDuration: 0.17
+  _lerpDuration: 0.4
+  _lerpAspect:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0012207031
+      value: 1
+      inSlope: 2
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.3985043
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 1
+      inWeight: 0.40064102
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  IsInTransfer: 0
 --- !u!33 &1078013600261537633
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -111,69 +177,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!114 &1078013600261537637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078013600261537639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b1fe87021a38f42a433cd66e3c4862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isAvailable: 1
-  _dropInitialVelocity: 20
-  _rigidbody: {fileID: 1078013600261537636}
-  _itemTransfer: {fileID: -6019708200141627545}
-  AllItems: {fileID: 0}
-  AllPlayerLinker: {fileID: 0}
---- !u!114 &-6019708200141627545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078013600261537639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d2795124e7bff14b9f2af3eeb0c5adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1078013600261537636}
-  _pickable: {fileID: 1078013600261537637}
-  _angularVelocity: 200
-  _highSpeedValue: 32
-  _normalSpeedValue: 16
-  _highSpeedDuration: 0.17
-  _lerpDuration: 0.4
-  _lerpAspect:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.0012207031
-      value: 1
-      inSlope: 2
-      outSlope: 0
-      tangentMode: 1
-      weightedMode: 2
-      inWeight: 0
-      outWeight: 0.3985043
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 1
-      weightedMode: 1
-      inWeight: 0.40064102
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  IsInTransfer: 0
+  m_CollisionDetection: 3
 --- !u!1 &7794053716133512165
 GameObject:
   m_ObjectHideFlags: 0
