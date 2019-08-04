@@ -144,10 +144,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1078013600261537636}
   _pickable: {fileID: 1078013600261537637}
-  _angularVelocity: 100
-  _highSpeedValue: 25
+  _angularVelocity: 200
+  _highSpeedValue: 32
   _normalSpeedValue: 16
-  _highSpeedDuration: 0.2
+  _highSpeedDuration: 0.17
   _lerpDuration: 0.4
   _lerpAspect:
     serializedVersion: 2

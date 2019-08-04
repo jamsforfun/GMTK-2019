@@ -15,7 +15,7 @@ public class Pickable : MonoBehaviour
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
-    private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
+    public const float DISTANCE_ON_TOP_OF_PLAYER = 1;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,7 +23,10 @@ public class Pickable : MonoBehaviour
         {
             return;
         }
-        _itemTransfer.StopTransfer();
+        if (_itemTransfer.IsInTransfer)
+        {
+            _itemTransfer.StopTransfer();
+        }
         PlayerLinker collidingPlayerLinker;
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
         if (isColliderAPlayer)
