@@ -8,9 +8,11 @@ public class Pickable : MonoBehaviour, IKillable
 {
     [SerializeField, FoldoutGroup("GamePlay")] private bool _isAvailable = true;
     [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialVelocity = 1f;
+    [SerializeField, FoldoutGroup("GamePlay")] private float _timeBeforeGetBackTheItem = 0.3f;
 
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
+    [SerializeField, FoldoutGroup("Object"), ReadOnly] private PlayerLinker _playerLinker;
 
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
@@ -20,6 +22,7 @@ public class Pickable : MonoBehaviour, IKillable
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
     public const float DISTANCE_ON_TOP_OF_PLAYER = 1;
+    private FrequencyCoolDown _timerPickable = new FrequencyCoolDown();
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -35,6 +38,14 @@ public class Pickable : MonoBehaviour, IKillable
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
         if (isColliderAPlayer)
         {
+            if (_playerLinker && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
+                && _timerPickable.IsRunning())
+            {
+                return;
+            }
+
+            _playerLinker = collidingPlayerLinker;
+
             PlayerObjectInteraction playerObjectInteraction = collidingPlayerLinker.PlayerObjectInteraction;
             bool hasItemSwapped;
             playerObjectInteraction.SetItem(this, out hasItemSwapped);
@@ -82,8 +93,8 @@ public class Pickable : MonoBehaviour, IKillable
         transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
-        _rigidbody.drag = 2f;
         _rigidbody.useGravity = true;
+        _timerPickable.StartCoolDown(_timeBeforeGetBackTheItem);
     }
 
     public void Kill()
