@@ -18,12 +18,13 @@ public class WorkStation : MonoBehaviour
     private bool _allInputsCheck;
 
     [SerializeField]
-    private float _transforationTime;
+    private float _transformationTime;
 
-    private void Awake()
-    {
-        
-    }
+    [SerializeField]
+    private ParticleSystem _engineFire;
+    [SerializeField]
+    private ParticleSystem _engineExtinguish;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +59,6 @@ public class WorkStation : MonoBehaviour
             {
                 _inputsCheck[i] = false;
             }
-
             StartCoroutine("CreateOutput");
         }   
     }
@@ -79,7 +79,7 @@ public class WorkStation : MonoBehaviour
 
     IEnumerator CreateOutput()
     {
-        yield return new WaitForSeconds(_transforationTime);
+        yield return new WaitForSeconds(_transformationTime);
         Instantiate(_output, spawner.position, Quaternion.identity);
     }
 }
