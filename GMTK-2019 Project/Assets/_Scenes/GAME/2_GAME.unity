@@ -2867,7 +2867,7 @@ PrefabInstance:
         type: 3}
       propertyPath: EndRoom
       value: 
-      objectReference: {fileID: 8197044607105345686}
+      objectReference: {fileID: 0}
     - target: {fileID: 7286885563983418861, guid: 1d7763dc6f9069e46b97e323df313cd9,
         type: 3}
       propertyPath: buttons.Array.size
@@ -3953,7 +3953,7 @@ PrefabInstance:
     - target: {fileID: 5314164974333956202, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.42
+      value: -15.54
       objectReference: {fileID: 0}
     - target: {fileID: 5314164974333956202, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
@@ -4654,6 +4654,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 207215840478055540, guid: 844c4b7eb20abe94d9037165b8baaa52,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3540729800595136620, guid: 844c4b7eb20abe94d9037165b8baaa52,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4701,9 +4706,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 844c4b7eb20abe94d9037165b8baaa52, type: 3}
---- !u!1 &8197044607105345686 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1755608381, guid: 844c4b7eb20abe94d9037165b8baaa52,
-    type: 3}
-  m_PrefabInstance: {fileID: 8197044607105345685}
-  m_PrefabAsset: {fileID: 0}

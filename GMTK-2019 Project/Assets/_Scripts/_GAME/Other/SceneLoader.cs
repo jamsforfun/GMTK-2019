@@ -82,10 +82,12 @@ public class SceneLoader : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+#if UNITY_EDITOR
         else
         {
             EditorSceneManager.OpenScene(EditorSceneManager.GetActiveScene().path, OpenSceneMode.Single);
         }
+#endif
     }
 
     /// <summary>

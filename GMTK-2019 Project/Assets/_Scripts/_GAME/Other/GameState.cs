@@ -64,7 +64,10 @@ public class GameState : MonoBehaviour
     public void StartGame()
     {
         _allPlayerLinker.Init();
-        EndRoom.SetActive(false);
+        if (EndRoom)
+        {
+            EndRoom.SetActive(false);
+        }
 
         List<Transform> allCams = new List<Transform>();
         for (int i = 0; i < _playerConnected.playerArrayConnected.Length; i++)
