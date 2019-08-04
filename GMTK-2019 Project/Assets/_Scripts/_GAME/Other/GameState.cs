@@ -20,6 +20,9 @@ public class GameState : MonoBehaviour
     [FoldoutGroup("GamePlay"), Tooltip("ref")]
     public float _timeDoorOpen = 20f;
 
+
+    [FoldoutGroup("GamePlay"), Tooltip("ref")]
+    public GameObject EndRoom;
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private GameUI _gameUi;
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
@@ -61,6 +64,7 @@ public class GameState : MonoBehaviour
     public void StartGame()
     {
         _allPlayerLinker.Init();
+        EndRoom.SetActive(false);
 
         List<Transform> allCams = new List<Transform>();
         for (int i = 0; i < _playerConnected.playerArrayConnected.Length; i++)
@@ -82,6 +86,8 @@ public class GameState : MonoBehaviour
         {
             StateOfGame = StateGame.DOOR_OPEN;
             _door.OpenDoor();
+            EndRoom.SetActive(true);
+            _allCameras.DoorOpen();
             _timeDoorClose.StartCoolDown(_timeDoorOpen);
         }
         if (StateOfGame == StateGame.DOOR_OPEN && _timeDoorClose.IsStartedAndOver())
@@ -134,8 +140,6 @@ public class GameState : MonoBehaviour
             {
                 UnPause();
             }
-
-            
         }
     }
 
