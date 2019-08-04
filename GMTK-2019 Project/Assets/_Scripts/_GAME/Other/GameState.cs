@@ -63,6 +63,7 @@ public class GameState : MonoBehaviour
 
     public void StartGame()
     {
+        Cursor.visible = false;
         _allPlayerLinker.Init();
         if (EndRoom)
         {
@@ -161,6 +162,7 @@ public class GameState : MonoBehaviour
         _allCameras.ActiveWinCam();
         _gameUi.Win();
         Debug.Log("win panel active");
+        Cursor.visible = true;
     }
 
     public void GoBackToMenu()

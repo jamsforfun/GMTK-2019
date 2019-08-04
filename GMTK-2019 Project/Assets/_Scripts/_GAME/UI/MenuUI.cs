@@ -23,6 +23,7 @@ public class MenuUI : MonoBehaviour
     private void Start()
     {
         buttons[0].Select();
+        Cursor.visible = true;
     }
 
     private void Update()
