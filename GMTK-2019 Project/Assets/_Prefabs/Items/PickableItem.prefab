@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078013600261537639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 6.45}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 57771482888719747}
@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4b1fe87021a38f42a433cd66e3c4862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _isAvailable: 1
   _dropInitialForce: 10
-  _timeBeforeGetBackTheItem: 0.3
+  _timeBeforeGetBackTheItem: 0.4
   _timeOfChangingLayerWhenDrop: 0.2
   _rigidbody: {fileID: 1078013600261537636}
   _collider: {fileID: 1078013600261537635}
@@ -72,8 +72,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d2795124e7bff14b9f2af3eeb0c5adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _rigidbody: {fileID: 1078013600261537636}
   _pickable: {fileID: 1078013600261537637}
   _angularVelocity: 100
@@ -178,7 +178,7 @@ Rigidbody:
   m_Drag: 3
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 3

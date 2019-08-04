@@ -610,7 +610,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsInside: 0
+  TimeMaxInsidePlayer: 5
+  _playerLinker: {fileID: 2528335964166722168}
   _refLandFil: {fileID: 0}
+  _pickable: {fileID: 0}
 --- !u!114 &9133912614535102855
 MonoBehaviour:
   m_ObjectHideFlags: 0

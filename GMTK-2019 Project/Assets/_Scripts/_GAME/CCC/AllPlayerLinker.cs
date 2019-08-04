@@ -15,6 +15,8 @@ public class AllPlayerLinker : MonoBehaviour
 
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     public PlayerLinker[] PlayerLinker;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    public Transform AllItems;
 
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     public ReferenceButton[] ReferenceButtonPlayer;
@@ -23,7 +25,7 @@ public class AllPlayerLinker : MonoBehaviour
     {
         for (int i = 0; i < PlayerLinker.Length; i++)
         {
-            PlayerLinker[i].Init();
+            PlayerLinker[i].Init(this);
         }
     }
 

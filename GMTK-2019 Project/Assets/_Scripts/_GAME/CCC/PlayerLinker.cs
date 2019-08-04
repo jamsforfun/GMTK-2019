@@ -37,9 +37,11 @@ public class PlayerLinker : MonoBehaviour
     public GroundForwardCheck GroundForwardCheck;
     [FoldoutGroup("Object"), Tooltip("ref")]
     public PlayerSlide PlayerSlide;
+    [FoldoutGroup("Object"), Tooltip("ref")]
+    public AllPlayerLinker AllPlayerLinker;
 
-    public void Init()
+    public void Init(AllPlayerLinker allPlayerLinker)
     {
-
+        AllPlayerLinker = allPlayerLinker;
     }
 }
