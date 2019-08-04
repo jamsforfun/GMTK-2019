@@ -1715,6 +1715,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1078013600261537636, guid: 084218430f9fb024da50c1fa3a8e80e4,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: -6019708200141627545, guid: 084218430f9fb024da50c1fa3a8e80e4,
+        type: 3}
+      propertyPath: _angularVelocity
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 084218430f9fb024da50c1fa3a8e80e4, type: 3}
 --- !u!1001 &910943875
@@ -1839,11 +1849,6 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
-        type: 3}
-      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3017246069334831456, guid: 69dab624b51706049af297602b665d4e,
         type: 3}
       propertyPath: _impulseForce
@@ -1859,6 +1864,11 @@ PrefabInstance:
       propertyPath: AllPlayerLinker
       value: 
       objectReference: {fileID: 1882460188}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69dab624b51706049af297602b665d4e, type: 3}
 --- !u!114 &910943876 stripped
@@ -5037,16 +5047,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 71504b4423232484688a9ecec8ea1c19, type: 2}
-    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
-        type: 3}
-      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3017246069334831456, guid: 69dab624b51706049af297602b665d4e,
         type: 3}
       propertyPath: AllPlayerLinker
       value: 
       objectReference: {fileID: 1882460188}
+    - target: {fileID: 3796428956060783653, guid: 69dab624b51706049af297602b665d4e,
+        type: 3}
+      propertyPath: _frequencyEaseAndOut._animationCurveIn.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69dab624b51706049af297602b665d4e, type: 3}
 --- !u!4 &6087745624777668047 stripped

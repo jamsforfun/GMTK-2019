@@ -20,7 +20,7 @@ public enum ItemType
 public class Pickable : MonoBehaviour, IKillable
 {
     [SerializeField, FoldoutGroup("GamePlay")] private bool _isAvailable = true;
-    [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialVelocity = 1f;
+    [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialForce = 1f;
     [SerializeField, FoldoutGroup("GamePlay")] private float _timeBeforeGetBackTheItem = 0.3f;
 
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
@@ -44,21 +44,20 @@ public class Pickable : MonoBehaviour, IKillable
         {
             return;
         }
-        if (_itemTransfer.IsInTransfer)
-        {
-            _itemTransfer.StopTransfer();
-        }
         PlayerLinker collidingPlayerLinker;
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
         if (isColliderAPlayer)
         {
-            if (_playerLinker && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
-                && _timerPickable.IsRunning())
+            bool isCollidingWithPreviousPlayer = IsCollidingWithPreviousPlayer(collidingPlayerLinker);
+            if (isCollidingWithPreviousPlayer)
             {
                 return;
             }
 
-            _playerLinker = collidingPlayerLinker;
+            if (_itemTransfer.IsInTransfer && !IsCollidingWithPreviousPlayer(collidingPlayerLinker))
+            {
+                _itemTransfer.StopTransfer();
+            }
 
             PlayerObjectInteraction playerObjectInteraction = collidingPlayerLinker.PlayerObjectInteraction;
             bool hasItemSwapped;
@@ -70,7 +69,16 @@ public class Pickable : MonoBehaviour, IKillable
                 SetupItemTransform(collidingPlayerLinker.RenderPlayerTurn);
                 collidingPlayerLinker.PlayerAction.SetCurrentItem(_itemTransfer);
             }
+            _playerLinker = collidingPlayerLinker;
+
         }
+    }
+
+    private bool IsCollidingWithPreviousPlayer(PlayerLinker collidingPlayerLinker)
+    {
+        return _playerLinker != null
+            && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
+            && _timerPickable.IsRunning();
     }
 
     private bool IsColliderAPlayer(Collision collision, out PlayerLinker collisionPlayerLinker)
@@ -98,16 +106,17 @@ public class Pickable : MonoBehaviour, IKillable
     public void DropItem()
     {
         Vector3 dropDirection = transform.parent.forward;
-        DetachFromPlayer();
-        _rigidbody.velocity = dropDirection * _dropInitialVelocity;
+        DetachFromPlayer(true);
+        _rigidbody.AddForce(dropDirection * _dropInitialForce);
+        //_rigidbody.velocity = dropDirection * _dropInitialVelocity;
     }
 
-    public void DetachFromPlayer()
+    public void DetachFromPlayer(bool shouldUseGravity = true)
     {
         transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
-        _rigidbody.useGravity = true;
+        _rigidbody.useGravity = shouldUseGravity;
         _timerPickable.StartCoolDown(_timeBeforeGetBackTheItem);
     }
 
