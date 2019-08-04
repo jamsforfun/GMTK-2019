@@ -8418,6 +8418,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1886108529}
+    - target: {fileID: 201813222, guid: 92b06b2170aa09542a594d012bcbe5f9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: 2_GAME
+      objectReference: {fileID: 0}
     - target: {fileID: 1141147555, guid: 92b06b2170aa09542a594d012bcbe5f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

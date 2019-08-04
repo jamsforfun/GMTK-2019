@@ -11,6 +11,11 @@ public class AllPlayerUpdater : MonoBehaviour
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private AllPlayerLinker _allPlayerLinker;
 
+    private void Awake()
+    {
+        SetInEditorIdPlayer();
+    }
+
     private void SetInEditorIdPlayer()
     {
         for (int i = 0; i < _allPlayerLinker.PlayerLinker.Length; i++)
