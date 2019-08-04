@@ -3,6 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+public enum ItemType
+{
+    None = 0,
+    Copper = 1,
+    Plastic = 2,
+    Useless = 3,
+    ControllerNoButtons = 4,
+    ControllerWithButtons = 5,
+    Electronics = 6,
+    Case = 7,
+    Console = 8
+}
+
 [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
 public class Pickable : MonoBehaviour
 {
@@ -12,10 +25,12 @@ public class Pickable : MonoBehaviour
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
 
+    public ItemType ItemType;
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
-    public const float DISTANCE_ON_TOP_OF_PLAYER = 1;
+
+    private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
 
     private void OnCollisionEnter(Collision collision)
     {
