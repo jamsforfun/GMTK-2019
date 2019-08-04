@@ -74,6 +74,17 @@ public class Pickable : MonoBehaviour, IKillable
         }
     }
 
+    public static void GivePickableToPlayer(PlayerLinker playerlinker, Pickable pickPrefabs)
+    {
+        Pickable pickable = Instantiate(pickPrefabs, playerlinker.Rigidbody.transform);
+        pickable.AllPlayerLinker = playerlinker.AllPlayerLinker;
+        pickable.AllItems = playerlinker.AllPlayerLinker.AllItems;
+
+        playerlinker.PlayerObjectInteraction.SetItem(pickable, out bool hitemSwapped);
+        pickable.SetupItemTransform(playerlinker.Rigidbody.transform);
+        playerlinker.PlayerAction.SetCurrentItem(pickable._itemTransfer);
+    }
+
     private bool IsCollidingWithPreviousPlayer(PlayerLinker collidingPlayerLinker)
     {
         return _playerLinker != null
