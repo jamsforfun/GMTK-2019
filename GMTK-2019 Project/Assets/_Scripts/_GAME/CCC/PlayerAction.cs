@@ -16,6 +16,13 @@ public class PlayerAction : MonoBehaviour
 
     private ItemTransfer _itemtranfer = default;
 
+    private void Start()
+    {
+        if (_gameState == null)
+        {
+            _gameState = ExtUtilityFunction.GetScript<GameState>();
+        }
+    }
 
     /// <summary>
     /// Execute an action on this player
@@ -39,6 +46,7 @@ public class PlayerAction : MonoBehaviour
             //here we attack other
             if (_itemtranfer != null)
             {
+                _playerLinker.LandfilOnPlayer.OutLandFill();
                 _itemtranfer.TransferItemToPlayer(playerAttack);
                 RemoveItem();
             }

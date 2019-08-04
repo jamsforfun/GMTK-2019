@@ -146,6 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5314164974333956202}
   - component: {fileID: 5314164974333956204}
+  - component: {fileID: 240964317}
   m_Layer: 0
   m_Name: LandFill
   m_TagString: Untagged
@@ -184,4 +185,20 @@ MonoBehaviour:
   Range: 2.4
   PlayerLayer:
   - Player
+  _prefabsPickable:
+  - {fileID: 1078013600261537637, guid: 084218430f9fb024da50c1fa3a8e80e4, type: 3}
   AllPlayerLinker: {fileID: 0}
+  boxCollider: {fileID: 240964317}
+--- !u!65 &240964317
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5314164974333956203}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8129177, y: 1, z: 15.608777}
+  m_Center: {x: 0.25638103, y: 0, z: 0}

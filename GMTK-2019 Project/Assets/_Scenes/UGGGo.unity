@@ -1989,6 +1989,7 @@ MonoBehaviour:
   - {fileID: 1521150158}
   - {fileID: 536192318}
   - {fileID: 493596774}
+  AllItems: {fileID: 0}
   ReferenceButtonPlayer:
   - TextButton: A
     PlayerLinker: {fileID: 178548522}
@@ -4638,10 +4639,35 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3627897687874709963, guid: 92b06b2170aa09542a594d012bcbe5f9,
+        type: 3}
+      propertyPath: timerTime
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1611630616659654473, guid: 92b06b2170aa09542a594d012bcbe5f9,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611630615637512524, guid: 92b06b2170aa09542a594d012bcbe5f9,
+        type: 3}
+      propertyPath: m_text
+      value: Pause Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611630615637512524, guid: 92b06b2170aa09542a594d012bcbe5f9,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611630615637512524, guid: 92b06b2170aa09542a594d012bcbe5f9,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611630615637512524, guid: 92b06b2170aa09542a594d012bcbe5f9,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1611630615635311350, guid: 92b06b2170aa09542a594d012bcbe5f9,
         type: 3}
@@ -5364,7 +5390,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: FUCK MENU
+  m_text: Win Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5392,7 +5418,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 53.95
+  m_fontSize: 70.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5433,7 +5459,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1860365063}
-    characterCount: 9
+    characterCount: 8
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -5827,8 +5853,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5314164974333956204, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
+      propertyPath: _prefabsPickable.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314164974333956204, guid: 8f8653d2362dbc443b1af7316db3bfdd,
+        type: 3}
       propertyPath: AllPlayerLinker
       value: 
       objectReference: {fileID: 733627368}
+    - target: {fileID: 5314164974333956204, guid: 8f8653d2362dbc443b1af7316db3bfdd,
+        type: 3}
+      propertyPath: _prefabsPickable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1078013600261537637, guid: 084218430f9fb024da50c1fa3a8e80e4,
+        type: 3}
+    - target: {fileID: 5314164974333956204, guid: 8f8653d2362dbc443b1af7316db3bfdd,
+        type: 3}
+      propertyPath: _prefabsPickable.Array.data[1]
+      value: 
+      objectReference: {fileID: 1078013600261537637, guid: 084218430f9fb024da50c1fa3a8e80e4,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f8653d2362dbc443b1af7316db3bfdd, type: 3}

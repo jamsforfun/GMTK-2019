@@ -15,7 +15,7 @@ public class Pickable : MonoBehaviour, IKillable
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private Collider _collider = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
-    [SerializeField, FoldoutGroup("Object"), ReadOnly] private PlayerLinker _playerLinker;
+    [SerializeField, FoldoutGroup("Object"), ReadOnly] public PlayerLinker LastPlayerLinker;
 
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
@@ -69,15 +69,27 @@ public class Pickable : MonoBehaviour, IKillable
                 SetupItemTransform(collidingPlayerLinker.RenderPlayerTurn);
                 collidingPlayerLinker.PlayerAction.SetCurrentItem(_itemTransfer);
             }
-            _playerLinker = collidingPlayerLinker;
+            LastPlayerLinker = collidingPlayerLinker;
 
         }
     }
 
+    public static void GivePickableToPlayer(PlayerLinker playerlinker, Pickable pickPrefabs)
+    {
+        Pickable pickable = Instantiate(pickPrefabs, playerlinker.RenderPlayerTurn);
+        pickable.AllPlayerLinker = playerlinker.AllPlayerLinker;
+        pickable.AllItems = playerlinker.AllPlayerLinker.AllItems;
+        pickable.LastPlayerLinker = playerlinker;
+
+        playerlinker.PlayerObjectInteraction.SetItem(pickable, playerlinker.Rigidbody.transform.forward, out bool hitemSwapped);
+        pickable.SetupItemTransform(playerlinker.RenderPlayerTurn);
+        playerlinker.PlayerAction.SetCurrentItem(pickable._itemTransfer);
+    }
+
     private bool IsCollidingWithPreviousPlayer(PlayerLinker collidingPlayerLinker)
     {
-        return _playerLinker != null
-            && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
+        return LastPlayerLinker != null
+            && collidingPlayerLinker.GetInstanceID() == LastPlayerLinker.GetInstanceID()
             && _timerPickable.IsRunning();
     }
 
