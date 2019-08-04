@@ -32,6 +32,8 @@ public class GameState : MonoBehaviour
     private AllCameras _allCameras;
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private Door _door;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private PlayerConnected _playerConnected;
 
     private FrequencyCoolDown _timeDoorClose = new FrequencyCoolDown();
 
@@ -59,7 +61,19 @@ public class GameState : MonoBehaviour
     public void StartGame()
     {
         _allPlayerLinker.Init();
-        _allCameras.ActiveMainCamera();
+
+        List<Transform> allCams = new List<Transform>();
+        for (int i = 0; i < _playerConnected.playerArrayConnected.Length; i++)
+        {
+            bool activeThisOne = (i < 2) ? true : _playerConnected.playerArrayConnected[i];
+            _allPlayerLinker.PlayerLinker[i].gameObject.SetActive(activeThisOne);
+            if (activeThisOne)
+            {
+                allCams.Add(_allPlayerLinker.PlayerLinker[i].Rigidbody.transform);
+            }
+        }
+
+        _allCameras.ActiveMainCamera(allCams);
     }
 
     private void TestIfGameEnded()
