@@ -14,7 +14,7 @@ public class WorkStation : MonoBehaviour
     private GameObject _output;
 
     [SerializeField]
-    private List<bool> _inputsCheck;
+    private List<bool> _inputsCheck = new List<bool>();
     private bool _allInputsCheck;
 
     private bool _hasChanged;
@@ -32,6 +32,15 @@ public class WorkStation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (_engineFire == null)
+        {
+            return;
+        }
+        if (_engineExtinguish == null)
+        {
+            return;
+        }
+
         _engineFire.Stop();
         _engineExtinguish.Stop();
         //ajoute un nouveau boolean pour chaque valeur object demandé en input
@@ -44,6 +53,10 @@ public class WorkStation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_inputsCheck == null)
+        {
+            return;
+        }
         for (int i = 0; i < _inputsWanded.Length; i++)
         {
             if (_inputsCheck[i])
