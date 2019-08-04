@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43cfde2adf340a34eb22590fdcc009ac, type: 3}
-  m_Name: ScenesNames
+  m_Script: {fileID: 11500000, guid: bfda56da833e2384a9677cd3c976a436, type: 3}
+  m_Name: MenuToCredits
   m_EditorClassIdentifier: 
-  ScenesToLoad:
-  - SceneName: 1_MENU
-    ScenePath: Assets/_Scenes/
-  - SceneName: 2_GAME
-    ScenePath: Assets/_Scenes/GAME/
+  m_Version: 0
+  m_Tracks: []
+  m_FixedDuration: 0
+  m_EditorSettings:
+    m_Framerate: 60
+  m_DurationMode: 0
+  m_MarkerTrack: {fileID: 0}
