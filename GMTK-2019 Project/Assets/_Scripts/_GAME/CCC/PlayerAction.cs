@@ -29,7 +29,10 @@ public class PlayerAction : MonoBehaviour
         playerAttack.PlayerRender.SetAction();
         if (playerAttack.GetInstanceID() == _playerLinker.GetInstanceID())
         {
-            //here we attack on our own
+            if (_itemtranfer != null)
+            {
+                _itemtranfer.AddButtonToController(playerAttack);
+            }
         }
         else
         {

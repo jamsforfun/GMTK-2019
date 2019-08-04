@@ -31,6 +31,7 @@ public class Pickable : MonoBehaviour, IKillable
     private void Awake()
     {
         _gameState = FindObjectOfType<GameState>();
+        _itemTransfer.RegisterGameState(_gameState);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -38,6 +39,10 @@ public class Pickable : MonoBehaviour, IKillable
         if (!_isAvailable || _gameState.StateOfGame == GameState.StateGame.WIN_GAME)
         {
             return;
+        }
+        if (_pickableType == pickableinput.manettesansbouton)
+        {
+            Debug.Log("Je suis une manette et je touche un player");
         }
         PlayerLinker collidingPlayerLinker;
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
@@ -115,6 +120,7 @@ public class Pickable : MonoBehaviour, IKillable
     public void SetLayerBackToDefault()
     {
         gameObject.SetLayerRecursively(0);
+        _collider.enabled = true;
     }
 
     public void DetachFromPlayer(bool shouldUseGravity = true)
@@ -140,8 +146,15 @@ public class Pickable : MonoBehaviour, IKillable
         Destroy(gameObject);
     }
 
+    public void SetPickableInput(pickableinput pickableinput)
+    {
+        _pickableType = pickableinput;
+    }
+
     public pickableinput PickableType
     {
         get { return _pickableType; }
     }
+
+
 }
