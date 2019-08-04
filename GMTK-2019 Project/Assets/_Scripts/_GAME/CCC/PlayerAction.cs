@@ -6,6 +6,7 @@ using UnityEngine;
 [TypeInfoBox("Player Move forward locally")]
 public class PlayerAction : MonoBehaviour
 {
+    [FoldoutGroup("Object"), SerializeField] private GameState _gameState = default;
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
     private PlayerInput _playerInput;
     [FoldoutGroup("GamePlay"), Tooltip("speed move forward"), SerializeField]
@@ -21,6 +22,10 @@ public class PlayerAction : MonoBehaviour
     /// </summary>
     public void AttackThisPlayer(PlayerLinker playerAttack)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         playerAttack.PlayerRender.SetAction();
         if (playerAttack.GetInstanceID() == _playerLinker.GetInstanceID())
         {
@@ -39,6 +44,7 @@ public class PlayerAction : MonoBehaviour
 
     private void RemoveItem()
     {
+
         _playerLinker.PlayerObjectInteraction.RemoveItem();
         _itemtranfer = null;
     }
