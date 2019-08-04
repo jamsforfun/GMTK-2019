@@ -28,18 +28,21 @@ public class ItemTransfer : MonoBehaviour
         _pickable.DetachFromPlayer();
         _rigidbody.drag = 0f;
         _rigidbody.useGravity = false;
+
         float timeSinceStart = 0f;
         IsInTransfer = true;
         Transform playerTransform = playerLinker.Rigidbody.transform;
         Vector3 directionToTarget = (playerTransform.position - transform.position).normalized;
         RotateSnapToPlayer(directionToTarget);
+
+
         while (timeSinceStart < _highSpeedDuration)
         {
             RotateToPlayer(playerTransform);
             _rigidbody.velocity = _highSpeedValue * transform.forward;
-            transform.position = new Vector3(transform.position.x,
+            _rigidbody.MovePosition(new Vector3(transform.position.x,
                                              Mathf.LerpUnclamped(transform.position.y, playerTransform.position.y, timeSinceStart / _highSpeedDuration),
-                                             transform.position.z);
+                                             transform.position.z));
             yield return null;
             timeSinceStart += Time.deltaTime;
         }
