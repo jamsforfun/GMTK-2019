@@ -14,12 +14,13 @@ public class ItemTransfer : MonoBehaviour
     [SerializeField, FoldoutGroup("Gameplay")] private float _highSpeedDuration = 0.1f;
     [SerializeField, FoldoutGroup("Gameplay")] private float _lerpDuration = 0.1f;
     [SerializeField, FoldoutGroup("Gameplay")] private AnimationCurve _lerpAspect = default;
+    private Coroutine _transferCoroutine;
 
-    [SerializeField, FoldoutGroup("Debug")] private bool _isInTransfer = false;
+    [FoldoutGroup("Debug")] public bool IsInTransfer = false;
 
     public void TransferItemToPlayer(PlayerLinker playerLinker)
     {
-        StartCoroutine(TransferCoroutine(playerLinker));
+        _transferCoroutine = StartCoroutine(TransferCoroutine(playerLinker));
     }
 
     private IEnumerator TransferCoroutine(PlayerLinker playerLinker)
@@ -27,29 +28,34 @@ public class ItemTransfer : MonoBehaviour
         _pickable.DetachFromPlayer();
         _rigidbody.drag = 0f;
         _rigidbody.useGravity = false;
+
         float timeSinceStart = 0f;
-        _isInTransfer = true;
+        IsInTransfer = true;
         Transform playerTransform = playerLinker.Rigidbody.transform;
         Vector3 directionToTarget = (playerTransform.position - transform.position).normalized;
         RotateSnapToPlayer(directionToTarget);
+
+
         while (timeSinceStart < _highSpeedDuration)
         {
             RotateToPlayer(playerTransform);
             _rigidbody.velocity = _highSpeedValue * transform.forward;
+            _rigidbody.MovePosition(new Vector3(transform.position.x,
+                                             Mathf.LerpUnclamped(transform.position.y, playerTransform.position.y, timeSinceStart / _highSpeedDuration),
+                                             transform.position.z));
             yield return null;
             timeSinceStart += Time.deltaTime;
         }
         while (timeSinceStart - _highSpeedDuration < _lerpDuration)
         {
             float lerpRatio = (timeSinceStart - _highSpeedDuration) / _lerpDuration;
-            Vector3 previousVelocityDirection = _rigidbody.velocity.normalized;
-            _rigidbody.velocity = Mathf.Lerp(_normalSpeedValue, _highSpeedValue, _lerpAspect.Evaluate(lerpRatio)) * previousVelocityDirection;
+            _rigidbody.velocity = Mathf.Lerp(_normalSpeedValue, _highSpeedValue, _lerpAspect.Evaluate(lerpRatio)) * transform.forward;
             RotateToPlayer(playerTransform);
             yield return null;
             timeSinceStart += Time.deltaTime;
         }
         _rigidbody.velocity = _normalSpeedValue * transform.forward;
-        while (_isInTransfer)
+        while (IsInTransfer)
         {
             RotateToPlayer(playerTransform);
             _rigidbody.velocity = _normalSpeedValue * transform.forward;
@@ -81,9 +87,15 @@ public class ItemTransfer : MonoBehaviour
 
     public void StopTransfer()
     {
-        _isInTransfer = false;
+        if (_transferCoroutine != null)
+        {
+            StopCoroutine(_transferCoroutine);
+        }
+        IsInTransfer = false;
         _rigidbody.useGravity = true;
         _rigidbody.drag = 2f;
         _rigidbody.isKinematic = false;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
     }
 }

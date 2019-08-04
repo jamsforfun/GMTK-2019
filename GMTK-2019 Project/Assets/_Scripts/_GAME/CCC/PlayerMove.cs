@@ -53,6 +53,11 @@ public class PlayerMove : MonoBehaviour
     {
         UnityMovement.MoveByForcePushing_WithPhysics(rb, new Vector3(direction.x, 0, direction.y), GetSpeed());
     }
+    public void MovePhysics3d(Vector3 direction)
+    {
+        Debug.DrawRay(rb.transform.position, direction * 50, Color.red);
+        UnityMovement.MoveByForcePushing_WithPhysics(rb, direction, GetSpeed());
+    }
 
     /// <summary>
     /// get the wanted direction of the Render who turn
@@ -87,18 +92,13 @@ public class PlayerMove : MonoBehaviour
 
         if (_playerLinker.GroundForwardCheck.IsStraffNeeded())
         {
-            //Debug.Log("move Straff");
-            //_playerLinker.PlayerSlide.CalculateStraffDirection();
             Vector3 straffDir = _playerLinker.PlayerSlide.GetStraffDirection();
-            MovePhysics(straffDir);
+            MovePhysics3d(straffDir);
         }
         else
         {
             MovePhysics(_lastDirection);
         }
-
-        //_lastDirection = _playerInput.GetMoveDirection();
-        //MovePhysics(_lastDirection);
     }
 
     private void TurnRender()
