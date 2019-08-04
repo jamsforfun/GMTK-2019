@@ -169,6 +169,7 @@ MonoBehaviour:
   cams:
   - {fileID: 467026520}
   - {fileID: 551551566}
+  _targetGroup: {fileID: 0}
 --- !u!1 &99924634
 GameObject:
   m_ObjectHideFlags: 0
