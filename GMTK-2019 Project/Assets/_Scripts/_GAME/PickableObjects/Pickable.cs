@@ -20,6 +20,8 @@ public class Pickable : MonoBehaviour, IKillable
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
     [SerializeField] private pickableinput _pickableType;
+    [SerializeField] private GameObject _meshConsole;
+    [SerializeField] private GameObject _meshBoitier;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
@@ -31,13 +33,23 @@ public class Pickable : MonoBehaviour, IKillable
     private void Awake()
     {
         _gameState = FindObjectOfType<GameState>();
+        _itemTransfer.RegisterGameState(_gameState);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if((_pickableType == pickableinput.boitier) && (collision.gameObject.GetComponent<Pickable>().PickableType == pickableinput.circuitimprime))
+        {
+            BecomeConsole(collision);
+        }
+
         if (!_isAvailable || _gameState.StateOfGame == GameState.StateGame.WIN_GAME)
         {
             return;
+        }
+        if (_pickableType == pickableinput.manettesansbouton)
+        {
+            Debug.Log("Je suis une manette et je touche un player");
         }
         PlayerLinker collidingPlayerLinker;
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
@@ -115,6 +127,15 @@ public class Pickable : MonoBehaviour, IKillable
         _rigidbody.isKinematic = true;
     }
 
+    private void BecomeConsole(Collision p_collision)
+    {
+        Destroy(p_collision.gameObject);
+        _meshBoitier.SetActive(false);
+        _meshConsole.SetActive(true);
+
+        _pickableType = pickableinput.console;
+    }
+
     public void DropItem(Vector3 dropDirection)
     {
         gameObject.SetLayerRecursively(LAYER_OF_DROPPING_ITEMS);
@@ -127,6 +148,7 @@ public class Pickable : MonoBehaviour, IKillable
     public void SetLayerBackToDefault()
     {
         gameObject.SetLayerRecursively(0);
+        _collider.enabled = true;
     }
 
     public void DetachFromPlayer(bool shouldUseGravity = true)
@@ -152,8 +174,15 @@ public class Pickable : MonoBehaviour, IKillable
         Destroy(gameObject);
     }
 
+    public void SetPickableInput(pickableinput pickableinput)
+    {
+        _pickableType = pickableinput;
+    }
+
     public pickableinput PickableType
     {
         get { return _pickableType; }
     }
+
+
 }

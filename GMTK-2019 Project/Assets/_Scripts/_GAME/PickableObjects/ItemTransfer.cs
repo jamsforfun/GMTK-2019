@@ -11,6 +11,7 @@ public class ItemTransfer : MonoBehaviour
     [SerializeField, FoldoutGroup("Object")] private GameState _gameState = default;
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private Pickable _pickable = default;
+    [SerializeField, FoldoutGroup("Object")] private ManetteButtons _manetteButtons = default;
     [SerializeField, FoldoutGroup("Gameplay")] private float _angularVelocity = 20f;
     [SerializeField, FoldoutGroup("Gameplay")] private float _highSpeedValue = 25f;
     [SerializeField, FoldoutGroup("Gameplay")] private float _normalSpeedValue = 10f;
@@ -26,9 +27,9 @@ public class ItemTransfer : MonoBehaviour
     [FoldoutGroup("Debug"), SerializeField]
     private TransferPhase _transferPhase = TransferPhase.None;
 
-    private void Awake()
+    public void RegisterGameState(GameState gameState)
     {
-        _gameState = FindObjectOfType<GameState>();
+        _gameState = gameState;
     }
 
     public void TransferItemToPlayer(PlayerLinker playerLinker)
@@ -47,7 +48,6 @@ public class ItemTransfer : MonoBehaviour
     {
         if (IsInTransfer)
         {
-            Debug.Log("lol");
             if (_transferPhase == TransferPhase.None)
             {
                 if (_isSnapping)
@@ -68,7 +68,6 @@ public class ItemTransfer : MonoBehaviour
             // High speed phase
             else if (_transferPhase == TransferPhase.HighSpeed)
             {
-                Debug.Log("High speed phase");
                 RotateToPlayer();
                 _rigidbody.velocity = _highSpeedValue * transform.forward;
                 float lerpRatio = 1 - _highSpeedCooldown.GetTimer() / _highSpeedDuration;
@@ -79,7 +78,6 @@ public class ItemTransfer : MonoBehaviour
                                                 
                 if (!_highSpeedCooldown.IsRunning())
                 {
-                    Debug.Log("High speed phase ended");
                     _transferPhase = TransferPhase.Transition;
                     _transitionCooldown.StartCoolDown(_lerpDuration);
                 }
@@ -87,13 +85,11 @@ public class ItemTransfer : MonoBehaviour
             // Transition phase
             else if (_transferPhase == TransferPhase.Transition)
             {
-                Debug.Log("Transition phase");
                 RotateToPlayer();
                 float lerpRatio = 1 - _transitionCooldown.GetTimer() / _lerpDuration;
                 _rigidbody.velocity = Mathf.Lerp(_normalSpeedValue, _highSpeedValue, _lerpAspect.Evaluate(lerpRatio)) * transform.forward;
                 if (!_transitionCooldown.IsRunning())
                 {
-                    Debug.Log("Transition phase ended");
                     _transferPhase = TransferPhase.NormalSpeed;
                     _rigidbody.velocity = _normalSpeedValue * transform.forward;
                 }
@@ -101,7 +97,6 @@ public class ItemTransfer : MonoBehaviour
             // Normal speed phase
             else if (_transferPhase == TransferPhase.NormalSpeed)
             {
-                Debug.Log("Normal speed phase");
                 RotateToPlayer();
                 _rigidbody.velocity = _normalSpeedValue * transform.forward;
             }
@@ -147,5 +142,13 @@ public class ItemTransfer : MonoBehaviour
         _rigidbody.isKinematic = false;
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
+    }
+
+    public void AddButtonToController(PlayerLinker playerLinker)
+    {
+        if (_pickable.PickableType == pickableinput.manettesansbouton && _manetteButtons != null)
+        {
+            _manetteButtons.RegisterPlayerButton(playerLinker);
+        }
     }
 }
