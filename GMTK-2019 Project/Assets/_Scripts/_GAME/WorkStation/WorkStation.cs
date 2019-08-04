@@ -24,6 +24,8 @@ public class WorkStation : MonoBehaviour
     private ParticleSystem _engineFire;
     [SerializeField]
     private ParticleSystem _engineExtinguish;
+    private bool _hasStartFire;
+    private bool _hasExtinguish;
 
     // Start is called before the first frame update
     void Start()
