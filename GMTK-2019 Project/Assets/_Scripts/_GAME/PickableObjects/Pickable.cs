@@ -75,7 +75,7 @@ public class Pickable : MonoBehaviour, IKillable
         pickable.AllPlayerLinker = playerlinker.AllPlayerLinker;
         pickable.AllItems = playerlinker.AllPlayerLinker.AllItems;
 
-        playerlinker.PlayerObjectInteraction.SetItem(pickable, out bool hitemSwapped);
+        playerlinker.PlayerObjectInteraction.SetItem(pickable, playerlinker.Rigidbody.transform.forward, out bool hitemSwapped);
         pickable.SetupItemTransform(playerlinker.Rigidbody.transform);
         playerlinker.PlayerAction.SetCurrentItem(pickable._itemTransfer);
     }
