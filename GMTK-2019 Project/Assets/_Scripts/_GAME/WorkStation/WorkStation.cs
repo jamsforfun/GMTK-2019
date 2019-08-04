@@ -100,12 +100,17 @@ public class WorkStation : MonoBehaviour
                 }
                 else
                 {
-                    _onFire = true;
+                    if (collision.gameObject.GetComponentInChildren<Pickable>().PickableType != pickableinput.extincteur)
+                        _onFire = true;
                 }
             }
             if ((collision.gameObject.GetComponentInChildren<Pickable>().PickableType == pickableinput.extincteur) && (_onFire))
             {
-                _onFire = false;
+                _onFire = false;     
+            }
+            else
+            { 
+                _onFire = true;
             }
             DropItem(collision);
         }
