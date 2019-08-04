@@ -57,8 +57,10 @@ namespace GMTK.VFX
             ParticleSystem.MainModule main;
             ParticleSystem.MinMaxCurve lifetime = new ParticleSystem.MinMaxCurve();
 
-            lifetime.constantMax = length * 0.1f;
-            lifetime.constantMin = length * 0.95f;
+            float scaleRatio = Mathf.Max(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
+            lifetime.constantMax = (length * 0.1f) / scaleRatio;
+            lifetime.constantMin = (length * 0.95f) / scaleRatio;
 
             for (int i = 0; i < _parametrableEffects.Length; i++)
             {
