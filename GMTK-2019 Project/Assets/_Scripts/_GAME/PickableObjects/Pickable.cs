@@ -11,13 +11,13 @@ public class Pickable : MonoBehaviour, IKillable
     [SerializeField, FoldoutGroup("GamePlay")] private float _timeBeforeGetBackTheItem = 0.3f;
     [SerializeField, FoldoutGroup("GamePlay")] private float _timeOfChangingLayerWhenDrop = 0.8f;
 
+    [SerializeField, FoldoutGroup("Object")] private GameState _gameState = default;
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private Collider _collider = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
     [SerializeField, FoldoutGroup("Object"), ReadOnly] private PlayerLinker _playerLinker;
 
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
-
 
     [SerializeField] private pickableinput _pickableType;
 
@@ -28,9 +28,14 @@ public class Pickable : MonoBehaviour, IKillable
     private const int LAYER_OF_DROPPING_ITEMS = 10;
     private FrequencyCoolDown _timerPickable = new FrequencyCoolDown();
 
+    private void Awake()
+    {
+        _gameState = FindObjectOfType<GameState>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (!_isAvailable)
+        if (!_isAvailable || _gameState.StateOfGame == GameState.StateGame.WIN_GAME)
         {
             return;
         }
@@ -87,6 +92,10 @@ public class Pickable : MonoBehaviour, IKillable
 
     private void SetupItemTransform(Transform playerTransform)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         _collider.enabled = false;
         transform.SetParent(playerTransform);
         transform.localPosition = DISTANCE_ON_TOP_OF_PLAYER * Vector3.up;
@@ -110,6 +119,10 @@ public class Pickable : MonoBehaviour, IKillable
 
     public void DetachFromPlayer(bool shouldUseGravity = true)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
@@ -119,6 +132,10 @@ public class Pickable : MonoBehaviour, IKillable
 
     public void Kill()
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         Instantiate(_particlePrefabsToCreate, transform.position, Quaternion.identity, null);
         Destroy(gameObject);
     }

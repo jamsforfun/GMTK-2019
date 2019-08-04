@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerObjectInteraction : MonoBehaviour
 {
+    [SerializeField] private GameState _gameState = default;
     private Pickable _currentItem;
     public bool HasItem { get { return _currentItem != null; } }
 
     public void SetItem(Pickable newItem, Vector3 dropDirection, out bool hasItemSwapped)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            hasItemSwapped = false;
+            return;
+        }
+
         if (_currentItem == null)
         {
             _currentItem = newItem;
