@@ -4,13 +4,15 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
-public class Pickable : MonoBehaviour
+public class Pickable : MonoBehaviour, IKillable
 {
     [SerializeField, FoldoutGroup("GamePlay")] private bool _isAvailable = true;
     [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialVelocity = 1f;
 
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
+
+    [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
@@ -80,5 +82,11 @@ public class Pickable : MonoBehaviour
         _rigidbody.isKinematic = false;
         _rigidbody.drag = 2f;
         _rigidbody.useGravity = true;
+    }
+
+    public void Kill()
+    {
+        Instantiate(_particlePrefabsToCreate, transform.position, Quaternion.identity, null);
+        Destroy(gameObject);
     }
 }
