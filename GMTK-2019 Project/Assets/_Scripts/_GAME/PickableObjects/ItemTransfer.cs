@@ -41,7 +41,6 @@ public class ItemTransfer : MonoBehaviour
         IsInTransfer = true;
         _isSnapping = true;
         _targetPlayerTransform = playerLinker.Rigidbody.transform;
-        Debug.Break();
     }
 
     private void FixedUpdate()

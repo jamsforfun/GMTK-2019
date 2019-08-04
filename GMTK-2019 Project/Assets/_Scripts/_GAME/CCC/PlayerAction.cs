@@ -43,6 +43,7 @@ public class PlayerAction : MonoBehaviour
             //here we attack other
             if (_itemtranfer != null)
             {
+                _playerLinker.LandfilOnPlayer.OutLandFill();
                 _itemtranfer.TransferItemToPlayer(playerAttack);
                 RemoveItem();
             }

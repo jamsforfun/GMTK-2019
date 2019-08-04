@@ -39,7 +39,7 @@ public class LandfilOnPlayer : MonoBehaviour
     /// called when we leave a land
     /// </summary>
     /// <param name="landfill"></param>
-    public void OutLandFil(Landfill landfill)
+    public void OutLandFill()
     {
         isInit = false;
         IsInside = false;
@@ -100,7 +100,7 @@ public class LandfilOnPlayer : MonoBehaviour
         //here we are not inside anymore
         if (IsInside)
         {
-            OutLandFil(_refLandFil);
+            OutLandFill();
         }
     }
 }
