@@ -52,9 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _dropInitialVelocity: 20
+  _dropInitialForce: 1
   _timeBeforeGetBackTheItem: 0.3
+  _timeOfChangingLayerWhenDrop: 0.8
   _rigidbody: {fileID: 1078013600261537636}
+  _collider: {fileID: 0}
   _itemTransfer: {fileID: -6019708200141627545}
   _playerLinker: {fileID: 0}
   _particlePrefabsToCreate: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
@@ -107,6 +109,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   IsInTransfer: 0
+  _transferPhase: 0
 --- !u!33 &1078013600261537633
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -380,7 +383,7 @@ PrefabInstance:
     - target: {fileID: 6420521745970143294, guid: a8b4253723924cd46a7ab31255f9bdb7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.08
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 6420521745970143294, guid: a8b4253723924cd46a7ab31255f9bdb7,
         type: 3}
@@ -435,17 +438,17 @@ PrefabInstance:
     - target: {fileID: 6420521745970143294, guid: a8b4253723924cd46a7ab31255f9bdb7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.4999998
+      value: 0.63264996
       objectReference: {fileID: 0}
     - target: {fileID: 6420521745970143294, guid: a8b4253723924cd46a7ab31255f9bdb7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 0.63265
       objectReference: {fileID: 0}
     - target: {fileID: 6420521745970143294, guid: a8b4253723924cd46a7ab31255f9bdb7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.4999998
+      value: 0.63264996
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8b4253723924cd46a7ab31255f9bdb7, type: 3}
