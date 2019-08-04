@@ -20,6 +20,8 @@ public class Pickable : MonoBehaviour, IKillable
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
     [SerializeField] private pickableinput _pickableType;
+    [SerializeField] private GameObject _meshConsole;
+    [SerializeField] private GameObject _meshBoitier;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
@@ -36,6 +38,11 @@ public class Pickable : MonoBehaviour, IKillable
 
     private void OnCollisionEnter(Collision collision)
     {
+        if((_pickableType == pickableinput.boitier) && (collision.gameObject.GetComponent<Pickable>().PickableType == pickableinput.circuitimprime))
+        {
+            BecomeConsole(collision);
+        }
+
         if (!_isAvailable || _gameState.StateOfGame == GameState.StateGame.WIN_GAME)
         {
             return;
@@ -118,6 +125,15 @@ public class Pickable : MonoBehaviour, IKillable
         transform.localPosition = DISTANCE_ON_TOP_OF_PLAYER * Vector3.up;
         transform.localRotation = Quaternion.identity;
         _rigidbody.isKinematic = true;
+    }
+
+    private void BecomeConsole(Collision p_collision)
+    {
+        Destroy(p_collision.gameObject);
+        _meshBoitier.SetActive(false);
+        _meshConsole.SetActive(true);
+
+        _pickableType = pickableinput.console;
     }
 
     public void DropItem(Vector3 dropDirection)
