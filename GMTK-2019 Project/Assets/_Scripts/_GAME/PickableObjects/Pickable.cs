@@ -17,6 +17,7 @@ public class Pickable : MonoBehaviour, IKillable
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
     [SerializeField] private pickableinput _pickableType;
+    [SerializeField] private Mesh _consoleMesh;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
@@ -26,6 +27,11 @@ public class Pickable : MonoBehaviour, IKillable
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        if (collision.gameObject.GetComponent<Pickable>()){
+            OnCollisionWithPickable(collision);
+        }
+
         if (!_isAvailable)
         {
             return;
@@ -101,6 +107,15 @@ public class Pickable : MonoBehaviour, IKillable
     {
         Instantiate(_particlePrefabsToCreate, transform.position, Quaternion.identity, null);
         Destroy(gameObject);
+    }
+
+    private void OnCollisionWithPickable(Collision collision)
+    {
+        if ((_pickableType == pickableinput.boitier) && (collision.gameObject.GetComponent<Pickable>().PickableType == pickableinput.circuitimprime))
+        {
+            _pickableType = pickableinput.console;
+            gameObject.GetComponent<MeshFilter>().mesh = _consoleMesh;
+        }
     }
 
     public pickableinput PickableType
