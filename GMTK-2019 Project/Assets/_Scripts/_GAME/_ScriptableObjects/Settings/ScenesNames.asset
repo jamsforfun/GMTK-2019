@@ -16,4 +16,4 @@ MonoBehaviour:
   - SceneName: 1_MENU
     ScenePath: Assets/_Scenes/
   - SceneName: 2_GAME
-    ScenePath: Assets/_Scenes/
+    ScenePath: Assets/_Scenes/GAME/
