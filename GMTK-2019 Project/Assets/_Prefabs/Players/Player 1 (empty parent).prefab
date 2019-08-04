@@ -610,10 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsInside: 0
-  TimeMaxInsidePlayer: 5
-  _playerLinker: {fileID: 2528335964166722168}
   _refLandFil: {fileID: 0}
-  _pickable: {fileID: 0}
 --- !u!114 &9133912614535102855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,6 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886fc69cf38ad014f9f45b48f73a233e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameState: {fileID: 0}
   _playerInput: {fileID: 1712045441419825147}
   _playerLinker: {fileID: 2528335964166722168}
   AllPlayerLinker: {fileID: 0}
@@ -811,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec8b542fe6470843923f273c633040e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameState: {fileID: 0}
 --- !u!114 &612207157663875949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,6 +1116,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: a1d08a48f88a5a343a8ba8fb0b590c2e,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5b3e305ac109c664ca0044f9fb5cca64, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1d08a48f88a5a343a8ba8fb0b590c2e, type: 3}
 --- !u!4 &6854131012847383802 stripped
@@ -1247,6 +1251,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8939985688688152895}
     m_Modifications:
+    - target: {fileID: 1852523008697416, guid: 8271d09672f5693458972e9b522f9c6b, type: 3}
+      propertyPath: m_Name
+      value: Trails
+      objectReference: {fileID: 0}
+    - target: {fileID: 1852523008697416, guid: 8271d09672f5693458972e9b522f9c6b, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4799495160564768, guid: 8271d09672f5693458972e9b522f9c6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1290,14 +1302,6 @@ PrefabInstance:
     - target: {fileID: 4799495160564768, guid: 8271d09672f5693458972e9b522f9c6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1852523008697416, guid: 8271d09672f5693458972e9b522f9c6b, type: 3}
-      propertyPath: m_Name
-      value: Trails
-      objectReference: {fileID: 0}
-    - target: {fileID: 1852523008697416, guid: 8271d09672f5693458972e9b522f9c6b, type: 3}
-      propertyPath: m_Layer
-      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 96867208711224628, guid: 8271d09672f5693458972e9b522f9c6b,
         type: 3}
