@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+public enum ItemType
+{
+    None = 0,
+    Copper = 1,
+    Plastic = 2,
+    Useless = 3,
+    ControllerNoButtons = 4,
+    ControllerWithButtons = 5,
+    Electronics = 6,
+    Case = 7,
+    Console = 8
+}
+
 [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
 public class Pickable : MonoBehaviour, IKillable
 {
     [SerializeField, FoldoutGroup("GamePlay")] private bool _isAvailable = true;
-    [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialVelocity = 1f;
+    [SerializeField, FoldoutGroup("GamePlay")] private float _dropInitialForce = 1f;
     [SerializeField, FoldoutGroup("GamePlay")] private float _timeBeforeGetBackTheItem = 0.3f;
 
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
@@ -16,12 +29,13 @@ public class Pickable : MonoBehaviour, IKillable
 
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
+
     [SerializeField] private pickableinput _pickableType;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
-    public const float DISTANCE_ON_TOP_OF_PLAYER = 1;
+    private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
     private FrequencyCoolDown _timerPickable = new FrequencyCoolDown();
 
     private void OnCollisionEnter(Collision collision)
@@ -30,21 +44,20 @@ public class Pickable : MonoBehaviour, IKillable
         {
             return;
         }
-        if (_itemTransfer.IsInTransfer)
-        {
-            _itemTransfer.StopTransfer();
-        }
         PlayerLinker collidingPlayerLinker;
         bool isColliderAPlayer = IsColliderAPlayer(collision, out collidingPlayerLinker);
         if (isColliderAPlayer)
         {
-            if (_playerLinker && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
-                && _timerPickable.IsRunning())
+            bool isCollidingWithPreviousPlayer = IsCollidingWithPreviousPlayer(collidingPlayerLinker);
+            if (isCollidingWithPreviousPlayer)
             {
                 return;
             }
 
-            _playerLinker = collidingPlayerLinker;
+            if (_itemTransfer.IsInTransfer && !IsCollidingWithPreviousPlayer(collidingPlayerLinker))
+            {
+                _itemTransfer.StopTransfer();
+            }
 
             PlayerObjectInteraction playerObjectInteraction = collidingPlayerLinker.PlayerObjectInteraction;
             bool hasItemSwapped;
@@ -56,7 +69,16 @@ public class Pickable : MonoBehaviour, IKillable
                 SetupItemTransform(collidingPlayerLinker.RenderPlayerTurn);
                 collidingPlayerLinker.PlayerAction.SetCurrentItem(_itemTransfer);
             }
+            _playerLinker = collidingPlayerLinker;
+
         }
+    }
+
+    private bool IsCollidingWithPreviousPlayer(PlayerLinker collidingPlayerLinker)
+    {
+        return _playerLinker != null
+            && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
+            && _timerPickable.IsRunning();
     }
 
     private bool IsColliderAPlayer(Collision collision, out PlayerLinker collisionPlayerLinker)
@@ -84,16 +106,17 @@ public class Pickable : MonoBehaviour, IKillable
     public void DropItem()
     {
         Vector3 dropDirection = transform.parent.forward;
-        DetachFromPlayer();
-        _rigidbody.velocity = dropDirection * _dropInitialVelocity;
+        DetachFromPlayer(true);
+        _rigidbody.AddForce(dropDirection * _dropInitialForce);
+        //_rigidbody.velocity = dropDirection * _dropInitialVelocity;
     }
 
-    public void DetachFromPlayer()
+    public void DetachFromPlayer(bool shouldUseGravity = true)
     {
         transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
-        _rigidbody.useGravity = true;
+        _rigidbody.useGravity = shouldUseGravity;
         _timerPickable.StartCoolDown(_timeBeforeGetBackTheItem);
     }
 
