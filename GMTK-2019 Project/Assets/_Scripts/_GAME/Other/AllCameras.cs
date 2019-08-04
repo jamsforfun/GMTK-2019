@@ -10,6 +10,8 @@ public class AllCameras : MonoBehaviour
     private List<CinemachineVirtualCamera> cams;
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     private CinemachineTargetGroup _targetGroup;
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    private Transform _winTransform;
 
     private void ActiveCam(int index)
     {
@@ -36,8 +38,15 @@ public class AllCameras : MonoBehaviour
         ActiveCam(0);
     }
 
+    public void DoorOpen()
+    {
+        _targetGroup.AddMember(_winTransform, 3f, 1);
+        ActiveCam(1);
+    }
+
     public void ActiveWinCam()
     {
-        ActiveCam(1);
+        
+        ActiveCam(2);
     }
 }
