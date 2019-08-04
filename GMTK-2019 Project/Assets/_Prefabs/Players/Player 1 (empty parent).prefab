@@ -572,6 +572,7 @@ MonoBehaviour:
   PlayerObjectInteraction: {fileID: 5216327441480801075}
   GroundForwardCheck: {fileID: 624506198516311253}
   PlayerSlide: {fileID: 9133912614535102855}
+  AllPlayerLinker: {fileID: 0}
 --- !u!114 &1938029674803252976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,7 +611,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsInside: 0
+  TimeMaxInsidePlayer: 5
+  _playerLinker: {fileID: 2528335964166722168}
   _refLandFil: {fileID: 0}
+  _pickablePrefabsTOCreate: {fileID: 0}
 --- !u!114 &9133912614535102855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,6 +1050,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tpose
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: a1d08a48f88a5a343a8ba8fb0b590c2e,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5b3e305ac109c664ca0044f9fb5cca64, type: 2}
     - target: {fileID: -4216859302048453862, guid: a1d08a48f88a5a343a8ba8fb0b590c2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1116,11 +1125,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: a1d08a48f88a5a343a8ba8fb0b590c2e,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 5b3e305ac109c664ca0044f9fb5cca64, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1d08a48f88a5a343a8ba8fb0b590c2e, type: 3}
 --- !u!4 &6854131012847383802 stripped

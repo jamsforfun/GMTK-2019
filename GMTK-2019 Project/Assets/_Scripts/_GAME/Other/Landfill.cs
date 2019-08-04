@@ -17,6 +17,8 @@ public class Landfill : MonoBehaviour
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
     public AllPlayerLinker AllPlayerLinker;
 
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    public BoxCollider boxCollider;
 
     private Collider[] _results = new Collider[30];
     private LayerMask _layerMask;
@@ -38,7 +40,7 @@ public class Landfill : MonoBehaviour
             return;
         }
 
-        int numberFound = Physics.OverlapSphereNonAlloc(transform.position, Range, _results, _layerMask);
+        int numberFound = Physics.OverlapBoxNonAlloc(transform.position, boxCollider.size / 2, _results, Quaternion.identity, _layerMask);
         for (int i = 0; i < numberFound; i++)
         {
             PlayerLinker linker = _results[i].gameObject.GetExtComponentInParents<PlayerLinker>(99, true);

@@ -833,6 +833,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240283124}
   m_CullTransparentMesh: 0
+--- !u!1 &240964316 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5314164974333956203, guid: 8f8653d2362dbc443b1af7316db3bfdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1579268757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &240964317
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240964316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8129177, y: 1, z: 15.608777}
+  m_Center: {x: 0.25638103, y: 0, z: 0}
 --- !u!114 &383069432 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1611630615635311350, guid: 92b06b2170aa09542a594d012bcbe5f9,
@@ -4393,7 +4412,7 @@ PrefabInstance:
     - target: {fileID: 5314164974333956202, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.39
+      value: -16.43
       objectReference: {fileID: 0}
     - target: {fileID: 5314164974333956202, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
@@ -4403,7 +4422,7 @@ PrefabInstance:
     - target: {fileID: 5314164974333956202, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.32
+      value: 6.59
       objectReference: {fileID: 0}
     - target: {fileID: 5314164974333956202, guid: 8f8653d2362dbc443b1af7316db3bfdd,
         type: 3}
@@ -4445,6 +4464,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5314164974333956204, guid: 8f8653d2362dbc443b1af7316db3bfdd,
+        type: 3}
+      propertyPath: AllPlayerLinker
+      value: 
+      objectReference: {fileID: 733627368}
+    - target: {fileID: 5314164974333956204, guid: 8f8653d2362dbc443b1af7316db3bfdd,
+        type: 3}
+      propertyPath: boxCollider
+      value: 
+      objectReference: {fileID: 240964317}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f8653d2362dbc443b1af7316db3bfdd, type: 3}
 --- !u!4 &1579268758 stripped
