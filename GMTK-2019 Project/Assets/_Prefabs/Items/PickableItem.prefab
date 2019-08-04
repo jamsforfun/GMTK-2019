@@ -51,8 +51,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isAvailable: 1
   _dropInitialVelocity: 20
+  _timeBeforeGetBackTheItem: 0.3
   _rigidbody: {fileID: 1078013600261537636}
   _itemTransfer: {fileID: -6019708200141627545}
+  _playerLinker: {fileID: 0}
   _particlePrefabsToCreate: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 3}
   AllItems: {fileID: 0}
@@ -175,7 +177,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &7794053716133512165
 GameObject:
   m_ObjectHideFlags: 0
