@@ -3,56 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode, RequireComponent(typeof(Collider))]
+[ExecuteInEditMode]
 public class Landfill : MonoBehaviour
 {
-    [SerializeField, ReadOnly] private PlayerLinker[] _allPlayerLinkers;
-    [SerializeField] private float _searchCooldown = 2f;
-    private List<FrequencyCoolDown> _playerCooldowns;
+    [FoldoutGroup("GamePlay"), Tooltip("ref"), SerializeField]
+    private float Range = 3f;
 
-#if UNITY_EDITOR
+    [FoldoutGroup("GamePlay"), Tooltip(""), SerializeField]
+    public string[] PlayerLayer = new string[] { "Player"};
+
+    [FoldoutGroup("Object"), Tooltip("ref"), SerializeField]
+    public AllPlayerLinker AllPlayerLinker;
+
+
+    private Collider[] _results = new Collider[30];
+    private LayerMask _layerMask;
+
+    private void Awake()
+    {
+        _layerMask = LayerMask.GetMask(PlayerLayer);
+    }
+
     private void Update()
     {
-        if (_allPlayerLinkers == null)
+        ExtDrawGuizmos.DebugWireSphere(transform.position, Color.red, Range);
+
+        if (!Application.isPlaying)
         {
-            _allPlayerLinkers = FindObjectOfType<AllPlayerLinker>().PlayerLinker;
-            for (int i = 0; i < _allPlayerLinkers.Length; i++)
+            return;
+        }
+
+        int numberFound = Physics.OverlapSphereNonAlloc(transform.position, Range, _results, _layerMask);
+        for (int i = 0; i < numberFound; i++)
+        {
+            PlayerLinker linker = _results[i].gameObject.GetExtComponentInParents<PlayerLinker>(99, true);
+            if (linker == null)
             {
-                _playerCooldowns.Add(new FrequencyCoolDown());
+                continue;
             }
+            LandfilOnPlayer landfil = linker.LandfilOnPlayer;
+            landfil.SetInside(this);
         }
-    }
-#endif
 
-    private void FixedUpdate()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        PlayerLinker collidingPlayerLinker = default;
-        foreach(PlayerLinker playerLinker in _allPlayerLinkers)
+        for (int i = 0; i < AllPlayerLinker.PlayerLinker.Length; i++)
         {
-            if (other == playerLinker.ColliderPlayer)
-            {
-                collidingPlayerLinker = playerLinker;
-            }
+            AllPlayerLinker.PlayerLinker[i].LandfilOnPlayer.TryToLeave();
         }
-        if (collidingPlayerLinker != null && !collidingPlayerLinker.PlayerObjectInteraction.HasItem)
-        {
-            
-        }
-    }
-
-    private IEnumerator SearchCoroutine(PlayerLinker playerLinker)
-    {
-        float timeSinceStart = 0f;
-        while (timeSinceStart < _searchCooldown)
-        {
-            yield return null;
-            timeSinceStart += Time.deltaTime;
-        }
-        // give a random object to the player
     }
 }
