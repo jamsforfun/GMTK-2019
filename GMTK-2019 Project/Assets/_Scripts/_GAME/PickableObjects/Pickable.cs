@@ -11,16 +11,15 @@ public class Pickable : MonoBehaviour, IKillable
     [SerializeField, FoldoutGroup("GamePlay")] private float _timeBeforeGetBackTheItem = 0.3f;
     [SerializeField, FoldoutGroup("GamePlay")] private float _timeOfChangingLayerWhenDrop = 0.8f;
 
+    [SerializeField, FoldoutGroup("Object")] private GameState _gameState = default;
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private Collider _collider = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
-    [SerializeField, FoldoutGroup("Object"), ReadOnly] private PlayerLinker _playerLinker;
+    [SerializeField, FoldoutGroup("Object"), ReadOnly] public PlayerLinker LastPlayerLinker;
 
     [SerializeField, FoldoutGroup("Prefabs")] private GameObject _particlePrefabsToCreate;
 
-
     [SerializeField] private pickableinput _pickableType;
-    [SerializeField] private Mesh _consoleMesh;
 
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
@@ -29,14 +28,14 @@ public class Pickable : MonoBehaviour, IKillable
     private const int LAYER_OF_DROPPING_ITEMS = 10;
     private FrequencyCoolDown _timerPickable = new FrequencyCoolDown();
 
+    private void Awake()
+    {
+        _gameState = FindObjectOfType<GameState>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.GetComponent<Pickable>()){
-            OnCollisionWithPickable(collision);
-        }
-
-        if (!_isAvailable)
+        if (!_isAvailable || _gameState.StateOfGame == GameState.StateGame.WIN_GAME)
         {
             return;
         }
@@ -65,15 +64,27 @@ public class Pickable : MonoBehaviour, IKillable
                 SetupItemTransform(collidingPlayerLinker.RenderPlayerTurn);
                 collidingPlayerLinker.PlayerAction.SetCurrentItem(_itemTransfer);
             }
-            _playerLinker = collidingPlayerLinker;
+            LastPlayerLinker = collidingPlayerLinker;
 
         }
     }
 
+    public static void GivePickableToPlayer(PlayerLinker playerlinker, Pickable pickPrefabs)
+    {
+        Pickable pickable = Instantiate(pickPrefabs, playerlinker.RenderPlayerTurn);
+        pickable.AllPlayerLinker = playerlinker.AllPlayerLinker;
+        pickable.AllItems = playerlinker.AllPlayerLinker.AllItems;
+        pickable.LastPlayerLinker = playerlinker;
+
+        playerlinker.PlayerObjectInteraction.SetItem(pickable, playerlinker.Rigidbody.transform.forward, out bool hitemSwapped);
+        pickable.SetupItemTransform(playerlinker.RenderPlayerTurn);
+        playerlinker.PlayerAction.SetCurrentItem(pickable._itemTransfer);
+    }
+
     private bool IsCollidingWithPreviousPlayer(PlayerLinker collidingPlayerLinker)
     {
-        return _playerLinker != null
-            && collidingPlayerLinker.GetInstanceID() == _playerLinker.GetInstanceID()
+        return LastPlayerLinker != null
+            && collidingPlayerLinker.GetInstanceID() == LastPlayerLinker.GetInstanceID()
             && _timerPickable.IsRunning();
     }
 
@@ -93,6 +104,10 @@ public class Pickable : MonoBehaviour, IKillable
 
     private void SetupItemTransform(Transform playerTransform)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         _collider.enabled = false;
         transform.SetParent(playerTransform);
         transform.localPosition = DISTANCE_ON_TOP_OF_PLAYER * Vector3.up;
@@ -116,6 +131,10 @@ public class Pickable : MonoBehaviour, IKillable
 
     public void DetachFromPlayer(bool shouldUseGravity = true)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         transform.SetParent(AllItems);
         _isAvailable = true;
         _rigidbody.isKinematic = false;
@@ -125,17 +144,12 @@ public class Pickable : MonoBehaviour, IKillable
 
     public void Kill()
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
         Instantiate(_particlePrefabsToCreate, transform.position, Quaternion.identity, null);
         Destroy(gameObject);
-    }
-
-    private void OnCollisionWithPickable(Collision collision)
-    {
-        if ((_pickableType == pickableinput.boitier) && (collision.gameObject.GetComponent<Pickable>().PickableType == pickableinput.circuitimprime))
-        {
-            _pickableType = pickableinput.console;
-            gameObject.GetComponent<MeshFilter>().mesh = _consoleMesh;
-        }
     }
 
     public pickableinput PickableType

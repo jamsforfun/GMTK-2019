@@ -8,6 +8,7 @@ public class ItemTransfer : MonoBehaviour
 {
     private enum TransferPhase { None, HighSpeed, Transition, NormalSpeed };
 
+    [SerializeField, FoldoutGroup("Object")] private GameState _gameState = default;
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
     [SerializeField, FoldoutGroup("Object")] private Pickable _pickable = default;
     [SerializeField, FoldoutGroup("Gameplay")] private float _angularVelocity = 20f;
@@ -25,8 +26,18 @@ public class ItemTransfer : MonoBehaviour
     [FoldoutGroup("Debug"), SerializeField]
     private TransferPhase _transferPhase = TransferPhase.None;
 
+    private void Awake()
+    {
+        _gameState = FindObjectOfType<GameState>();
+    }
+
     public void TransferItemToPlayer(PlayerLinker playerLinker)
     {
+        if (_gameState.StateOfGame == GameState.StateGame.WIN_GAME)
+        {
+            return;
+        }
+        _transferPhase = TransferPhase.None;
         IsInTransfer = true;
         _isSnapping = true;
         _targetPlayerTransform = playerLinker.Rigidbody.transform;

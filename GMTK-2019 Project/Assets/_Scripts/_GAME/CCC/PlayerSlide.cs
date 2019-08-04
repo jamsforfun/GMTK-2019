@@ -56,7 +56,6 @@ public class PlayerSlide : MonoBehaviour
         }
         else
         {
-            Debug.Log("can straff !");
             Vector3 relativeDirPlayer = _playerLinker.PlayerInput.GetRelativeDirection();
             float dotRight = 0f;
             float dotLeft = 0f;
@@ -66,7 +65,6 @@ public class PlayerSlide : MonoBehaviour
 
             if (rightOrLeft == 1)
             {
-                Debug.Log("1");
                 playerStraff = ExtVector3.GetProjectionOfAOnB(relativeDirPlayer, right, upPlayer, minMaxMagnitude.x, minMaxMagnitude.y);// right * (dotRight);
                 if (_groundForwardCheck.IsAdvancedForwardCastRightOrLeft())
                 {
@@ -80,7 +78,6 @@ public class PlayerSlide : MonoBehaviour
             }
             else if (rightOrLeft == -1)
             {
-                Debug.Log("-1");
                 playerStraff = ExtVector3.GetProjectionOfAOnB(relativeDirPlayer, - right, upPlayer, minMaxMagnitude.x, minMaxMagnitude.y);//-right * dotLeft;
                 if (_groundForwardCheck.IsAdvancedForwardCastRightOrLeft())
                 {
@@ -95,7 +92,6 @@ public class PlayerSlide : MonoBehaviour
             }
             else
             {
-                Debug.Log("here...");
                 playerStraff = Vector3.zero;
             }
         }
