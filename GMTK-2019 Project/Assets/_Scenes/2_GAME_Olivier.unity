@@ -170,6 +170,7 @@ MonoBehaviour:
   - {fileID: 467026520}
   - {fileID: 551551566}
   _targetGroup: {fileID: 0}
+  _winTransform: {fileID: 0}
 --- !u!1 &99924634
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ MonoBehaviour:
   - Player
   _prefabsPickable: []
   AllPlayerLinker: {fileID: 733627368}
-  boxCollider: {fileID: 0}
+  boxCollider: {fileID: 99924636}
 --- !u!1001 &178548520
 PrefabInstance:
   m_ObjectHideFlags: 0
