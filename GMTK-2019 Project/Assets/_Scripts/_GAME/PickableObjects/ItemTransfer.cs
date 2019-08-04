@@ -41,6 +41,7 @@ public class ItemTransfer : MonoBehaviour
         _transferPhase = TransferPhase.None;
         IsInTransfer = true;
         _isSnapping = true;
+        _pickable.Collider.enabled = true;
         _targetPlayerTransform = playerLinker.Rigidbody.transform;
     }
 

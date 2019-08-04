@@ -57,7 +57,7 @@ MonoBehaviour:
   _timeOfChangingLayerWhenDrop: 0.8
   _gameState: {fileID: 0}
   _rigidbody: {fileID: 1078013600261537636}
-  _collider: {fileID: 0}
+  Collider: {fileID: 1078013600261537635}
   _itemTransfer: {fileID: -6019708200141627545}
   LastPlayerLinker: {fileID: 0}
   _particlePrefabsToCreate: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
@@ -82,6 +82,7 @@ MonoBehaviour:
   _gameState: {fileID: 0}
   _rigidbody: {fileID: 1078013600261537636}
   _pickable: {fileID: 1078013600261537637}
+  _manetteButtons: {fileID: 0}
   _angularVelocity: 200
   _highSpeedValue: 32
   _normalSpeedValue: 16

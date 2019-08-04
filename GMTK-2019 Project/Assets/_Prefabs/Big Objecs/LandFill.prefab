@@ -186,7 +186,14 @@ MonoBehaviour:
   PlayerLayer:
   - Player
   _prefabsPickable:
+  - {fileID: 1078013600261537637, guid: 08cf648fd80e6894e94f9f3fd2740689, type: 3}
   - {fileID: 1078013600261537637, guid: 084218430f9fb024da50c1fa3a8e80e4, type: 3}
+  - {fileID: 1078013600261537637, guid: b558945fc054f6c4989e1a4d1eca6bd8, type: 3}
+  - {fileID: 1078013600261537637, guid: 5e2e5bed6838c71438fc0ff075653336, type: 3}
+  - {fileID: 1078013600261537637, guid: 988329c9526e60340aadefda26c8ce87, type: 3}
+  - {fileID: 1078013600261537637, guid: 83f80a26c09939746a1a794c2aed3efb, type: 3}
+  - {fileID: 1078013600261537637, guid: 510cdc95c775f7a4aa3ad5f0a7cd6696, type: 3}
+  - {fileID: 1078013600261537637, guid: 7e784d2504cb30d42af94c9f3a1716f3, type: 3}
   AllPlayerLinker: {fileID: 0}
   boxCollider: {fileID: 240964317}
 --- !u!65 &240964317

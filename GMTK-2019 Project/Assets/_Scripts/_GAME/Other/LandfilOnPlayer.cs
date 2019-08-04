@@ -84,7 +84,11 @@ public class LandfilOnPlayer : MonoBehaviour
             //here in the old one
             IsInside = true;
             isInit = true;
-            PlayerConnected.Instance.SetVibrationPlayer(_playerLinker.PlayerManager.Id, Stay);
+
+            if (!_playerLinker.PlayerObjectInteraction.HasItem)
+            {
+                PlayerConnected.Instance.SetVibrationPlayer(_playerLinker.PlayerManager.Id, Stay);
+            }
 
             if (_timeInside.IsStartedAndOver())
             {

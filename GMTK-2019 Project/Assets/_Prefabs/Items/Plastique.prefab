@@ -51,15 +51,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isAvailable: 1
-  _dropInitialVelocity: 20
+  _dropInitialForce: 1
   _timeBeforeGetBackTheItem: 0.3
+  _timeOfChangingLayerWhenDrop: 0.8
+  _gameState: {fileID: 0}
   _rigidbody: {fileID: 1078013600261537636}
+  Collider: {fileID: 1078013600261537635}
   _itemTransfer: {fileID: -6019708200141627545}
-  _playerLinker: {fileID: 0}
+  LastPlayerLinker: {fileID: 0}
   _particlePrefabsToCreate: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 3}
   _pickableType: 0
-  _consoleMesh: {fileID: 0}
+  _meshConsole: {fileID: 0}
+  _meshBoitier: {fileID: 0}
   AllItems: {fileID: 0}
   AllPlayerLinker: {fileID: 0}
 --- !u!114 &-6019708200141627545
@@ -74,8 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2795124e7bff14b9f2af3eeb0c5adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameState: {fileID: 0}
   _rigidbody: {fileID: 1078013600261537636}
   _pickable: {fileID: 1078013600261537637}
+  _manetteButtons: {fileID: 0}
   _angularVelocity: 200
   _highSpeedValue: 32
   _normalSpeedValue: 16
@@ -106,6 +112,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   IsInTransfer: 0
+  _transferPhase: 0
 --- !u!33 &1078013600261537633
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -281,11 +288,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1078013600261537638}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: c241858e7dbbcf5448b5a12d85b38502,
-        type: 3}
-      propertyPath: m_Name
-      value: bouteille
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c241858e7dbbcf5448b5a12d85b38502,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -355,6 +357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: c241858e7dbbcf5448b5a12d85b38502,
+        type: 3}
+      propertyPath: m_Name
+      value: bouteille
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c241858e7dbbcf5448b5a12d85b38502, type: 3}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Collider)), RequireComponent(typeof(Rigidbody))]
 public class Pickable : MonoBehaviour, IKillable
@@ -13,7 +14,7 @@ public class Pickable : MonoBehaviour, IKillable
 
     [SerializeField, FoldoutGroup("Object")] private GameState _gameState = default;
     [SerializeField, FoldoutGroup("Object")] private Rigidbody _rigidbody = default;
-    [SerializeField, FoldoutGroup("Object")] private Collider _collider = default;
+    [SerializeField, FoldoutGroup("Object"), FormerlySerializedAs("_collider")] public Collider Collider = default;
     [SerializeField, FoldoutGroup("Object")] private ItemTransfer _itemTransfer = default;
     [SerializeField, FoldoutGroup("Object"), ReadOnly] public PlayerLinker LastPlayerLinker;
 
@@ -120,7 +121,7 @@ public class Pickable : MonoBehaviour, IKillable
         {
             return;
         }
-        _collider.enabled = false;
+        Collider.enabled = false;
         transform.SetParent(playerTransform);
         transform.localPosition = DISTANCE_ON_TOP_OF_PLAYER * Vector3.up;
         transform.localRotation = Quaternion.identity;
@@ -141,14 +142,14 @@ public class Pickable : MonoBehaviour, IKillable
         gameObject.SetLayerRecursively(LAYER_OF_DROPPING_ITEMS);
         Invoke(nameof(SetLayerBackToDefault), _timeOfChangingLayerWhenDrop);
         DetachFromPlayer(true);
-        _collider.enabled = true;
+        Collider.enabled = true;
         _rigidbody.AddForce(dropDirection * _dropInitialForce, ForceMode.Impulse);
     }
 
     public void SetLayerBackToDefault()
     {
         gameObject.SetLayerRecursively(0);
-        _collider.enabled = true;
+        Collider.enabled = true;
     }
 
     public void DetachFromPlayer(bool shouldUseGravity = true)
