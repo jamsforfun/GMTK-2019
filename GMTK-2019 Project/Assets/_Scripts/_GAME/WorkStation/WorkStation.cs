@@ -113,8 +113,8 @@ public class WorkStation : MonoBehaviour
 
     private void DropItem(Collision p_collision)
     {
-        Destroy(p_collision.gameObject.GetComponentInChildren<Pickable>().gameObject);                    
         //p_collision.gameObject.GetComponentInParent<Pickable>().DropItem();
+        Destroy(p_collision.gameObject.GetComponentInChildren<Pickable>().gameObject);                   
     }
 
     IEnumerator CreateOutput()
