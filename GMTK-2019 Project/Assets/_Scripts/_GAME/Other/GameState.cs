@@ -72,7 +72,7 @@ public class GameState : MonoBehaviour
         List<Transform> allCams = new List<Transform>();
         for (int i = 0; i < _playerConnected.playerArrayConnected.Length; i++)
         {
-            bool activeThisOne = (i < 2) ? true : _playerConnected.playerArrayConnected[i];
+            bool activeThisOne = true;// (i < 2) ? true : _playerConnected.playerArrayConnected[i];
             _allPlayerLinker.PlayerLinker[i].gameObject.SetActive(activeThisOne);
             if (activeThisOne)
             {

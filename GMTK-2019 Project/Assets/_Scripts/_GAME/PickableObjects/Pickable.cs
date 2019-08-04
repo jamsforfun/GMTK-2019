@@ -26,7 +26,7 @@ public class Pickable : MonoBehaviour, IKillable
     [ReadOnly] public Transform AllItems;
     [ReadOnly] public AllPlayerLinker AllPlayerLinker;
 
-    private const float DISTANCE_ON_TOP_OF_PLAYER = 1;
+    private const float DISTANCE_ON_TOP_OF_PLAYER = 3;
     private const int LAYER_OF_DROPPING_ITEMS = 10;
     private FrequencyCoolDown _timerPickable = new FrequencyCoolDown();
 

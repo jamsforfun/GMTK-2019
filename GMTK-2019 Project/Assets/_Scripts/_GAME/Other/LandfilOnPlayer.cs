@@ -17,6 +17,9 @@ public class LandfilOnPlayer : MonoBehaviour
     [FoldoutGroup("Object"), Tooltip("ref"), SerializeField, ReadOnly]
     private Pickable _pickablePrefabsTOCreate;
 
+    public Vibration Stay;
+    public Vibration End;
+
     private FrequencyCoolDown _timeInside = new FrequencyCoolDown();
 
     private bool isInit = false;
@@ -81,9 +84,11 @@ public class LandfilOnPlayer : MonoBehaviour
             //here in the old one
             IsInside = true;
             isInit = true;
+            PlayerConnected.Instance.SetVibrationPlayer(_playerLinker.PlayerManager.Id, Stay);
 
             if (_timeInside.IsStartedAndOver())
             {
+                PlayerConnected.Instance.SetVibrationPlayer(_playerLinker.PlayerManager.Id, End);
                 TimerEndInside();
             }
         }
