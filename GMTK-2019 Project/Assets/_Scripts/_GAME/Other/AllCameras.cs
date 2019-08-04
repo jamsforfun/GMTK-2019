@@ -40,8 +40,8 @@ public class AllCameras : MonoBehaviour
 
     public void DoorOpen()
     {
-        _targetGroup.AddMember(_winTransform, 3f, 1);
         ActiveCam(1);
+        _targetGroup.AddMember(_winTransform, 3f, 1);
     }
 
     public void ActiveWinCam()
