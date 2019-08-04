@@ -52,12 +52,14 @@ MonoBehaviour:
   _isAvailable: 1
   _dropInitialForce: 10
   _timeBeforeGetBackTheItem: 0.3
+  _timeOfChangingLayerWhenDrop: 0.2
   _rigidbody: {fileID: 1078013600261537636}
+  _collider: {fileID: 1078013600261537635}
   _itemTransfer: {fileID: -6019708200141627545}
   _playerLinker: {fileID: 0}
   _particlePrefabsToCreate: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 3}
-  ItemType: 0
+  _pickableType: 0
   AllItems: {fileID: 0}
   AllPlayerLinker: {fileID: 0}
 --- !u!114 &-6019708200141627545
@@ -75,10 +77,10 @@ MonoBehaviour:
   _rigidbody: {fileID: 1078013600261537636}
   _pickable: {fileID: 1078013600261537637}
   _angularVelocity: 100
-  _highSpeedValue: 10
-  _normalSpeedValue: 1
-  _highSpeedDuration: 1
-  _lerpDuration: 1
+  _highSpeedValue: 32
+  _normalSpeedValue: 18
+  _highSpeedDuration: 0.5
+  _lerpDuration: 0.5
   _lerpAspect:
     serializedVersion: 2
     m_Curve:
