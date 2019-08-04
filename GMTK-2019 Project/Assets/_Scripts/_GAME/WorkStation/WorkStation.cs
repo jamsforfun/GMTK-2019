@@ -17,6 +17,9 @@ public class WorkStation : MonoBehaviour
     private List<bool> _inputsCheck;
     private bool _allInputsCheck;
 
+    private bool _hasChanged;
+    private bool _onFire;
+
     [SerializeField]
     private float _transformationTime;
 
@@ -25,11 +28,12 @@ public class WorkStation : MonoBehaviour
     [SerializeField]
     private ParticleSystem _engineExtinguish;
     private bool _hasStartFire;
-    private bool _hasExtinguish;
 
     // Start is called before the first frame update
     void Start()
     {
+        _engineFire.Stop();
+        _engineExtinguish.Stop();
         //ajoute un nouveau boolean pour chaque valeur object demandé en input
         for (int i = 0; i < _inputsWanded.Length; i++)
         {
@@ -62,26 +66,65 @@ public class WorkStation : MonoBehaviour
                 _inputsCheck[i] = false;
             }
             StartCoroutine("CreateOutput");
-        }   
+        }
+
+        if ((_onFire) && (!_hasStartFire))
+        {
+            _engineFire.Play();
+            _hasStartFire = true;
+        } 
+
+        if ((!_onFire) && (_hasStartFire))
+        {
+            _hasStartFire = false;
+            _engineFire.Stop();
+            StartCoroutine("WaitForSmoke");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //cherche si le type de l'object corespond à celui voulu en input
-        for (int i = 0; i < _inputsWanded.Length; i++)
+        if (collision.gameObject.GetComponentInChildren<Pickable>())
         {
-            if (collision.gameObject.GetComponentInChildren<Pickable>().PickableType == _inputsWanded[0])
+            //cherche si le type de l'object corespond à celui voulu en input
+            for (int i = 0; i < _inputsWanded.Length; i++)
             {
-                //collision.gameObject.GetComponentInParent<Pickable>().DropItem();
-                _inputsCheck[i] = true;
-                Destroy(collision.gameObject.GetComponentInChildren<Pickable>().gameObject);
+                if ((collision.gameObject.GetComponentInChildren<Pickable>().PickableType == _inputsWanded[i]) && (!_inputsCheck[i]) && (!_onFire))
+                {
+                    _inputsCheck[i] = true;
+                    _hasChanged = true;
+                }
+                if (_hasChanged)
+                {
+                    _hasChanged = false;
+                }
+                else
+                {
+                    _onFire = true;
+                }
             }
+            if ((collision.gameObject.GetComponentInChildren<Pickable>().PickableType == pickableinput.extincteur) && (_onFire))
+            {
+                _onFire = false;
+            }
+            DropItem(collision);
         }
+    }
+
+    private void DropItem(Collision p_collision)
+    {
+        Destroy(p_collision.gameObject.GetComponentInChildren<Pickable>().gameObject);                    
+        //p_collision.gameObject.GetComponentInParent<Pickable>().DropItem();
     }
 
     IEnumerator CreateOutput()
     {
         yield return new WaitForSeconds(_transformationTime);
         Instantiate(_output, spawner.position, Quaternion.identity);
+    }
+    IEnumerator WaitForSmoke()
+    {
+        yield return new WaitForSeconds(3f);
+        _engineExtinguish.Play();
     }
 }
